@@ -1,0 +1,27 @@
+{
+  "name": "eiltoeic",
+  "version": "0.1.0",
+  "private": false,
+  "scripts": {
+    "dev": " next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "chart.js": "^2.9.4",
+    "next": "^10.0.9",
+    "react": "17.0.2",
+    "react-chartjs-2": "^2.11.1",
+    "react-dom": "17.0.2",
+    "sqlite": "^3.0.6",
+    "sqlite3": "^5.0.2",
+    "tailwindcss": "^2.0.4",
+    "xlsx": "^0.16.9"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.8",
+    "tailwindcss": "^2.0.4"
+  }
+}
