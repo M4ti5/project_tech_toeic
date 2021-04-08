@@ -1,27 +1,37 @@
 
-import React, { Component } from 'react'
-import Header from '../components/header'
-import PieChart from '../components/pieChart'
-import LineChart from '../components/lineChart'
+import React, {useState} from 'react'
+import {PrismaClient} from '@prisma/client'
 
+import Header from '../../components/header'
+import PieChart from '../../components/pieChart'
+import LineChart from '../../components/lineChart'
 
-export default class ViewToeic extends Component{
-    constructor(props) {
-        super(props);
+const prisma = new PrismaClient()
+
+export async function getServerSideProps({ params }){
+  
+    const toeic = await prisma.toeics.findMany({ // Filtrer en JSON
+            where:{
+              idToeic:{
+                equals: params.id
+              }
+            }
+          })
+    return{ 
+        props:{
+            toeicInit : toeic
+        }
     }
-    /*
-    Remarque de Matis :
-    - Tous les données des graphique j'ai commenter les props pour que cela s'affiche pour tester
-    - Voir le commentaire que j'ai fait : src\pages\eleves\[nom]\index.js --  ligne 9
-    - Essaye de decouper en Composant React les Gosses partie pour le code soit plus simple a l'avenir
+}
 
-    */
-    render(){
+export default function ViewToeic({toeicInit}){
+    const [toeic , setToeic] = useState(toeicInit)
+    console.log(toeic)
 
-        return(
+    return(
 
     <div>
-            <Header title={"Toeic numero "+this.props.numToeic+" "+ (this.props.date != undefined ? this.props.date : "")}/>
+            <Header title={"Toeic du "+toeic[0].date}/>
 
             <main>
                 <div>
@@ -117,5 +127,4 @@ export default class ViewToeic extends Component{
 
       </div>
     )
-}
 }

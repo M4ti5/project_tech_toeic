@@ -1,52 +1,36 @@
-import React, {useEffect, useState } from 'react'
-import {useRouter} from 'next/router'
-import Link from "next/link"
-import  {urlReader} from '../../components/urlReader'
+import { useState } from 'react'
+import {PrismaClient} from '@prisma/client'
+
 import Header from '../../components/header'
+import Link from 'next/link'
 
+const prisma = new PrismaClient()
 
-export default function vueToeics({toeicsList}) {
+export async function getServerSideProps(){
 
-    const router =  useRouter() //Permet d'utiliser les Routes Stat/Dyna
-
-    const [toeics , setToeic] = useState(toeicsList)
-
-    useEffect(() =>{
-        async function loadData(){
-            const rep = await fetch("http://localhost:3000/api/toeics/") //récupere les données dans l'api
-            const toeicsList = await rep.json() // le transforme sous forme JSON
-            setToeic(toeicsList) // renvoie l'element JSON à la fonciton parent
-
+    const toeics = await prisma.toeics.findMany()
+    return{
+        props:{
+            toeicList : toeics
         }
+    }
+}
 
-        if(toeicsList == undefined) {
-            loadData() //Charge les données a la premiere ouverture de la page
+export default function vueEleves({toeicList}) {
 
-        }
-
-    },[])
-
-
+    
+    const [toeics , setToeics] = useState(toeicList)
     return (
     <div>
-        <Header title="Listes des Toeic"/>
+        <Header title="Listes des Toeics"/>
         {
-                (toeics != undefined ? toeics.map(e => (
-                    <div>
-                        <Link as = {`/toeics/${e.numToeic}/${e.date}`} href="/toeics/[numToeic]/[date]">
-                            {/*Sa sera mieux de mettre un componanent eleves*/}
-                            <h1>{e.numToeic+" "+e.date}</h1>
-                        </Link>
-                    </div>
-                )):useEffect) // useEffect appel la fonction ci dessus pour forcE le loadData
-        }
-
+                toeics.map((t, i) => (
+                    <Link as= {`/toeics/${t.idToeic}`} href="/toeics/[id]" key={i}>
+                      <h1>{t.date}</h1>
+                    </Link>
+                ))
+        } 
+        
     </div>
-
-
-
-
-
-
     )
 }

@@ -31,16 +31,13 @@ export default class Student extends React.Component {
                                                     Name
                                                 </th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Student's Number
-                                                </th>
-                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                     Score
                                                 </th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Edit
+                                                  
                                                 </th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Delete
+
                                                 </th>
                                             </tr>
                                         </thead>
@@ -58,13 +55,11 @@ export default class Student extends React.Component {
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="text-sm text-gray-900">
-                                                        {this.props.data[3]}
+                                                        {this.props.data[2]}
                                                     </div>
                                                 </td>
                                                 
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {this.props.data[1]} / 100
-                                                </td>
+                                        
 
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     <button className="bg-gray-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.edit}>EDIT</button>

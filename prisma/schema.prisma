@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./sqlite.db"
+}
+
+model annee_classes {
+  idAnnee       String             @id @default(cuid())
+  valeurBarre   Int
+  classes classes[]
+}
+
+model classes {
+  idClasse      String              @id @default(cuid())
+  nomClasse     String
+  idAnnee       String              @default(cuid())
+  annee_classes annee_classes      @relation(fields: [idAnnee], references: [idAnnee])
+  eleves        eleves[]
+}
+
+model eleves {
+  idEleve         String             @id @default(cuid())
+  idClasse        String?            @default(cuid())
+  idGroupe        String?            @default(cuid())
+  idProfesseur    String?            @default(cuid())
+  Nom             String
+  Prenom          String
+  login           String?
+  password        String?
+  classes         classes?          @relation(fields: [idClasse], references: [idClasse])
+  groupes         groupes?          @relation(fields: [idGroupe], references: [idGroupe])
+  professeurs     professeurs?      @relation(fields: [idProfesseur], references: [idProfesseur])
+  resultats_toeic resultats_toeic[]
+}
+
+model groupes {
+  idGroupe     String             @id @default(cuid())
+  idProfesseur String             @default(cuid())
+  professeurs  professeurs @relation(fields: [idProfesseur], references: [idProfesseur])
+  eleves       eleves[]
+}
+
+model professeurs {
+  idProfesseur String             @id @default(cuid())
+  nom          String
+  prenom       String
+  login        String?
+  password     String?
+  eleves       eleves[]
+  groupes      groupes[]
+}
+
+model resultats_toeic {
+  idResultatToeic String             @id @default(cuid())
+  idEleve         String             @default(cuid())
+  numToeic        String             @default(cuid())
+  scorePart1      Int?
+  scorePart2      Int?
+  scorePart3      Int?
+  scorePart4      Int?
+  scorePart5      Int?
+  scorePart6      Int?
+  scorePart7      Int?
+  eleves          eleves @relation(fields: [idEleve], references: [idEleve])
+  toeic           toeics  @relation(fields: [numToeic], references: [idToeic])
+}
+
+model toeics {
+  idToeic         String             @id @default(cuid())
+  date            String
+  resultats_toeic resultats_toeic[]
+}

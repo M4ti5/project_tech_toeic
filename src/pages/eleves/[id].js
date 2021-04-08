@@ -1,29 +1,37 @@
 
-import React, { Component } from 'react'
+import React, {useState} from 'react'
+import {PrismaClient} from '@prisma/client'
 
+import Header from '../../components/header'
+import PieChart from '../../components/pieChart'
+import LineChart from '../../components/lineChart'
 
-import Header from '../components/header'
-import PieChart from '../components/pieChart'
-import LineChart from '../components/lineChart'
+const prisma = new PrismaClient()
 
-export default class ViewEleve extends Component{
-    constructor(props) {
-        super(props);
+export async function getServerSideProps({ params }){
+  
+    const eleve = await prisma.eleves.findMany({ // Filtrer en JSON
+            where:{
+              idEleve:{
+                equals: params.id
+              }
+            }
+          })
+    return{
+        props:{
+            eleveInit : eleve
+        }
     }
+}
 
-    /*
-    Remarque de Matis : 
-    - Tous les données des graphique j'ai commenter les props pour que cela s'affiche pour tester
-    - Voir le commentaire que j'ai fait : src\pages\eleves\[nom]\index.js --  ligne 9
-    - Essaye de decouper en Composant React les Gosses partie pour le code soit plus simple a l'avenir
-     
-    */
-    render(){
-    
-        return(
+export default function ViewEleve({eleveInit}){
 
+    const [eleve , setEleve] = useState(eleveInit)
+    console.log(eleve)
+
+    return(
     <div>
-            <Header title={this.props.nom+" "+ (this.props.prenom != undefined ? this.props.prenom : "")}/>
+            <Header title={eleve[0].Nom+" "+eleve[0].Prenom}/>
 
             <main>
                 <div>
@@ -35,7 +43,7 @@ export default class ViewEleve extends Component{
                             </div>
                             <div class="p-5">
                                 <h3 class="text-white text-lg">TOEIC n°1</h3>
-                                <p class="text-gray-400">{/*this.props.toeic1[2]*/}</p>
+                                <p class="text-gray-400">{}</p>
                             </div>
                         </div>
                         <div class="bg-gray-900 shadow-lg rounded p-3">
@@ -44,16 +52,16 @@ export default class ViewEleve extends Component{
                             </div>
                             <div class="p-5">
                                 <h3 class="text-white text-lg">TOEIC n°2</h3>
-                                <p class="text-gray-400">{/*this.props.toeic2[2]*/}</p>
+                                <p class="text-gray-400">{}</p>
                             </div>
-                        </div>
+                        </div>  
                         <div class="bg-gray-900 shadow-lg rounded p-3">
                             <div class="group relative">
                                 <PieChart label1="Right Answers" label2="Wrong Answers" data1={42/*this.props.toeic3[0]*/} data2 ={150/*this.props.toeic3[1]*/} />
                             </div>
                             <div class="p-5">
                                 <h3 class="text-white text-lg">TOEIC n°3</h3>
-                                <p class="text-gray-400">{/*this.props.toeic3[2]*/}</p>
+                                <p class="text-gray-400">{}</p>
                             </div>
                         </div>
                     </section>
@@ -206,4 +214,4 @@ export default class ViewEleve extends Component{
       </div>
     )
 }
-}
+
