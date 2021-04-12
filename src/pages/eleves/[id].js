@@ -5,6 +5,7 @@ import {PrismaClient} from '@prisma/client'
 import Header from '../../components/header'
 import PieChart from '../../components/pieChart'
 import LineChart from '../../components/lineChart'
+import ListToeicStudents from '../../components/listToeicStudents'
 
 const prisma = new PrismaClient()
 
@@ -17,21 +18,63 @@ export async function getServerSideProps({ params }){
               }
             }
           })
+    const resultatsToeics = await prisma.resultats_toeic.findMany({ // Filtrer en JSON
+        where:{
+            idEleve:{
+                equals: params.id
+            }
+        }
+    })
+
     return{
         props:{
-            eleveInit : eleve
+            eleveInit: eleve,
+            resultatsToeicsInit: resultatsToeics
         }
+    }
+
+}
+
+export function chechThresh(result, listThresh) {
+    if(result > 150){
+        listThresh.push("Yes")
+    }
+    else{
+        listThresh.push("No")
     }
 }
 
-export default function ViewEleve({eleveInit}){
+export default function ViewEleve({eleveInit, resultatsToeicsInit}){
 
     const [eleve , setEleve] = useState(eleveInit)
-    console.log(eleve)
+    const [toeics, setToeics] = useState(resultatsToeicsInit)
+    const results = []
+    const labelLine = []
+    const listThresh = []
+
+    var cpt = 1
+    toeics.forEach(element => (
+        results.push(element.scorePart1
+            +element.scorePart2
+            +element.scorePart3
+            +element.scorePart4
+            +element.scorePart5
+            +element.scorePart6
+            +element.scorePart7
+        ),
+        labelLine.push(cpt),
+        cpt = cpt + 1
+    ))
+
+    results.forEach(result => (
+        chechThresh(result, listThresh)
+    ))
 
     return(
     <div>
             <Header title={eleve[0].Nom+" "+eleve[0].Prenom}/>
+
+            {results.forEach(element => (console.log(element)))}
 
             <main>
                 <div>
@@ -39,7 +82,7 @@ export default function ViewEleve({eleveInit}){
                     <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div class="bg-gray-900 shadow-lg rounded p-3">
                             <div class="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={42/*this.props.toeic1[0]*/} data2 ={150/*this.props.toeic1[1]*/} />
+                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={results[0]} data2={200-results[0]} />
                             </div>
                             <div class="p-5">
                                 <h3 class="text-white text-lg">TOEIC n°1</h3>
@@ -48,7 +91,7 @@ export default function ViewEleve({eleveInit}){
                         </div>
                         <div class="bg-gray-900 shadow-lg rounded p-3">
                             <div class="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={42/*this.props.toeic2[0]*/} data2 ={150/*this.props.toeic2[1]*/} />
+                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={results[1]} data2={200-results[1]} />
                             </div>
                             <div class="p-5">
                                 <h3 class="text-white text-lg">TOEIC n°2</h3>
@@ -57,7 +100,7 @@ export default function ViewEleve({eleveInit}){
                         </div>  
                         <div class="bg-gray-900 shadow-lg rounded p-3">
                             <div class="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={42/*this.props.toeic3[0]*/} data2 ={150/*this.props.toeic3[1]*/} />
+                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={results[2]} data2={200-results[2]} />
                             </div>
                             <div class="p-5">
                                 <h3 class="text-white text-lg">TOEIC n°3</h3>
@@ -95,107 +138,9 @@ export default function ViewEleve({eleveInit}){
                                         </thead>
 
                                         <tbody class="bg-white divide-y divide-gray-200">
-                                            <tr>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="flex items-center">
-                                                            <div class="ml-4">
-                                                                <div class="text-sm font-medium text-gray-900">
-                                                                    TOEIC n°1
-                                                                </div>
-                                                                <div class="text-sm text-gray-500">
-                                                                    Official
-                                                                </div>
-                                                            </div>
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="text-sm text-gray-900">
-                                                        {/*this.props.toeic1[0]*/} / {/*/*this.props.toeic1[1]*/}
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="text-sm text-gray-900">
-                                                        {/*this.props.toeic1[0]*/} / {/*/*this.props.toeic1[1]*/}
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-green-800">
-                                                        NO
-                                                    </span>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {/*this.props.toeic1[2]*/}
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="flex items-center">
-                                                            <div class="ml-4">
-                                                                <div class="text-sm font-medium text-gray-900">
-                                                                    TOEIC n°2
-                                                                </div>
-                                                                <div class="text-sm text-gray-500">
-                                                                    Not Official
-                                                                </div>
-                                                            </div>
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="text-sm text-gray-900">
-                                                        {/*this.props.toeic2[0]*/} / {/*this.props.toeic2[1]*/}
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="text-sm text-gray-900">
-                                                        {/*this.props.toeic1[0]*/} / {/*/*this.props.toeic1[1]*/}
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                        YES
-                                                    </span>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {/*this.props.toeic2[2]*/}
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="flex items-center">
-                                                            <div class="ml-4">
-                                                                <div class="text-sm font-medium text-gray-900">
-                                                                    TOEIC n°3
-                                                                </div>
-                                                                <div class="text-sm text-gray-500">
-                                                                    Official
-                                                                </div>
-                                                            </div>
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="text-sm text-gray-900">
-                                                        {/*this.props.toeic3[0]*/} / {/*this.props.toeic3[1]*/}
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="text-sm text-gray-900">
-                                                        {/*this.props.toeic1[0]*/} / {/*/*this.props.toeic1[1]*/}
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                        YES
-                                                    </span>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {/*this.props.toeic3[2]*/}
-                                                </td>
-                                            </tr>
-
-
-
+                                            {results.map((result) => (
+                                                <ListToeicStudents number={results.indexOf(result)+1} official="Not Official" note200={result} note20={result / 10} threshold={listThresh[results.indexOf(result)]} date="../../...."/>
+                                            ))}
                                         </tbody>
                                     </table>
                                 </div>
@@ -207,7 +152,7 @@ export default function ViewEleve({eleveInit}){
 
                 <div >
                   <br></br><h1 class="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Progression </h1>
-                  <LineChart dataList={[0, 785, 750, 845, 800, 820]} labelList={["Toeic n°0", "Toeic n°1", "Toeic n°2", "Toeic n°3", "Toeic n°4", "Toeic n°5"]}/>
+                  <LineChart dataList={results} labelList={labelLine}/>
                 </div>  
             </main>
             
