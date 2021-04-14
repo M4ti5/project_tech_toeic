@@ -31,7 +31,31 @@ export default class Student extends React.Component {
                                                     Name
                                                 </th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Score
+                                                    Score Orale
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Score Ecrit
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Partie 1
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Partie 2
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Partie 3
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Partie 4
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Partie 5
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Partie 6
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Partie 7
                                                 </th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                   
@@ -48,18 +72,58 @@ export default class Student extends React.Component {
                                                     <div class="flex items-center">
                                                             <div class="ml-4">
                                                                 <div class="text-sm font-medium text-gray-900">
-                                                                    {this.props.data[0]}
+                                                                    {this.props.data.Nom}
                                                                 </div>
                                                             </div>
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="text-sm text-gray-900">
-                                                        {this.props.data[2]}
+                                                        {this.props.data.ScoreOral}
                                                     </div>
                                                 </td>
                                                 
-                                        
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <div class="text-sm text-gray-900">
+                                                        {this.props.data.ScoreEcrit}
+                                                    </div>
+                                                </td>
+
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <div class="text-sm text-gray-900">
+                                                        {this.props.data.Partie1}
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <div class="text-sm text-gray-900">
+                                                        {this.props.data.Partie2}
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <div class="text-sm text-gray-900">
+                                                        {this.props.data.Partie3}
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <div class="text-sm text-gray-900">
+                                                        {this.props.data.Partie4}
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <div class="text-sm text-gray-900">
+                                                        {this.props.data.Partie5}
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <div class="text-sm text-gray-900">
+                                                        {this.props.data.Partie6}
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <div class="text-sm text-gray-900">
+                                                        {this.props.data.Partie7}
+                                                    </div>
+                                                </td>
 
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     <button className="bg-gray-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.edit}>EDIT</button>

@@ -48,7 +48,7 @@ export default class Sheet extends React.Component {
       /* Sclicing of data */
       var temp = [];
       for(let i=0 ; i < data.length; i++){
-        temp.push(Object.values(data[i]).slice(0,7))
+        temp.push(Object.values(data[i]).slice(0,8))
       }
       
       /* find the date in name's file */
@@ -57,10 +57,13 @@ export default class Sheet extends React.Component {
 
       /* Update state */
       this.setState({ data: temp })
-
+    
       /* return the file's date to the Parent component */
       this.props.data.date = this.date
       this.props.data.changeDate(this.props.type, this.date)
+      /* return the file's notes to the Parent component */
+      this.props.data.notes = temp
+      this.props.data.setNotes(this.props.type, temp)
 
     };
     if (rABS) reader.readAsBinaryString(file);
@@ -75,7 +78,6 @@ export default class Sheet extends React.Component {
 
         <DragDropFile handleFile = {this.handleFile}>
 
-          <OutTable data = {this.state.data} />
 
         </DragDropFile>
       </div>
@@ -138,35 +140,6 @@ class DataInput extends React.Component {
           />
         </div>
       </form>
-    );
-  }
-}
-
-// Give the data in HTML table
-class OutTable extends React.Component {
-  render() {
-    return (
-      <div className="transition duration-200 container my-6 mx-auto rounded-md bg-gray-700 text-white p-7 ">
-        <table className="table table-striped">
-          <tbody>
-          {console.log(this.props.data)}
-          {/*Remarque Matis:
-            Je pensesais a un composant qui a une forme de ligne qui comprend :
-              -Nom 
-              -Prenom 
-              -Note 
-              -Tous les Parties 
-              -Un bouton pour modifier les valeurs( Nom et prenom Compris)
-              -Un bouton pour suprimmer la ligne
-
-              A Noté: Ne supprime pas ton composant Actuelle student mais renome le quickResumeEleve par exemple
-              
-          */}
-          {this.props.data.map((student) => <Student data={student}/>)}
-          
-          </tbody>
-        </table>
-      </div>
     );
   }
 }
