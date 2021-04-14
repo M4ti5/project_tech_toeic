@@ -2,6 +2,7 @@ import { useState } from 'react'
 import {PrismaClient} from '@prisma/client'
 
 import Header from '../../components/header'
+import ListStudents from "../../components/listStudents"
 
 import Link from 'next/link'
 
@@ -25,11 +26,27 @@ export default function vueEleves({elevesList}) {
     return (
     <div>
         <Header title="Listes des Eleves"/>
+
         {
                 eleves.map((e, i) => (
-                    <Link as= {`/eleves/${e.idEleve}`} href="/eleves/[id]" key={i}>
-                      <h1>{e.Nom} {e.Prenom}</h1>
-                    </Link>
+                    <div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <ListStudents nom={e.Nom} prenom={e.Prenom} /*numEtudiant={}*/ classe={e.classes} groupe={e.groupes} />
+                                    </td>
+                                    <td>
+                                        <Link as= {`/eleves/${e.idEleve}`} href="/eleves/[id]" key={i}>
+                                            <button className="bg-gray-600 text-white px-4 py-2 border rounded-md hover:bg-white hover:border-indigo-500 hover:text-black ">
+                                                Voir
+                                            </button>
+                                        </Link>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
                 ))
         } 
         
