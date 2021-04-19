@@ -34,11 +34,11 @@ export default class HeaderTab extends Component {
         }
 
         return(
-            <header className=" grid grid-cols-6 bg-white shadow mb-6">
+            <header className=" grid grid-cols-5 bg-white shadow mb-6">
                 <div className=" col-span-2 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <h1 className="text-3xl font-bold leading-tight text-gray-900"> {this.props.title} </h1>
                 </div>
-                <div className=" my-6 col-start-6">
+                <div className=" my-6 col-start-5">
                     {this.state.dlButton}
                 </div>
             </header>

@@ -3,19 +3,20 @@ import { PrismaClient, Prisma } from '@prisma/client'
 
 
 import Header from '../components/header'
-import Sheet  from "../components/sheet" 
+import Sheet  from "../components/sheet"
 import Student from '../components/student';
 import WarningBox from '../components/warningBox'
 import Selector from "../components/selector"
 
 
 export default class ToeicImportation extends Component {
-    
+
         constructor(props) {
             super(props);
             this.changeDate = this.changeDate.bind(this)
             this.setNotes = this.setNotes.bind(this)
             this.loadId = this.loadId.bind(this)
+            this.delete = this.delete.bind(this)
             this.state = {
               warning:[],
               dateFileOral:'',
@@ -64,6 +65,7 @@ export default class ToeicImportation extends Component {
             }
         }
 
+
         changeDate(typeFile , date){
             switch(typeFile){
                 case "Oral" :
@@ -75,11 +77,11 @@ export default class ToeicImportation extends Component {
             }
             this.verifyCorrespondence()
         }
-        
+
         verifyCorrespondence(){
             var oral = this.state.dateFileOral
             var ecrit = this.state.dateFileEcrit
-            
+
             this.setState({warning:null})
 
             if(ecrit=='' && oral !=''){
@@ -90,7 +92,7 @@ export default class ToeicImportation extends Component {
                 this.setState({date:oral.substr(6, 2) + "-"+ oral.substr(4, 2) + "-" +oral.substr(0, 4)})
             }else if ( oral != ecrit  ){
                 this.setState({warning: <WarningBox message="Vos fichiers n'ont pas la meme date" />});
-            } 
+            }
         }
 
         loadId(id, typeId){
@@ -145,36 +147,51 @@ export default class ToeicImportation extends Component {
             }
 
         }
-    
-    
+        delete(e,key) {
+            //console.log(key + " " + this.state.notes.length)
+            e.preventDefault();
+            var temp = []
+            for ( let i = 0; i < this.state.notes.length; i++) {
+                if(i != key) {
+                  temp.push(this.state.notes[i]);
+                }
+            }
+            this.setState({notes: temp})
+            this.render()
+        }
+
+
+
         render(){
-            
-            //console.log(this.state.notes!=""? this.state.notes : ""),
+            {console.log(this.state.notes)}
             //console.log(this.state.idProfesseur!="" ? this.state.idProfesseur :"")
             //console.log(this.state.idClasse!="" ? this.state.idClasse :"")
             //console.log(this.state.toeicOfficiel)
 
             return(
                 
-                <div className="bg-gray-100 h-full min-h-screen  flex flex-col">
+                <div className=" relative bg-gray-100 h-full min-h-screen  flex flex-col">
 
                     <Header title={"Importation du Toiec "+ this.state.date }/>
                     {this.state.warning}
-                    
+
                     {/*Corps de la page*/}
                 
-                    <main className="bg-gray-100 h-full min-h-screen justify-center ">
-                        <div className="flex flex-nowrap justify-center">
+                    <main className=" relative bg-gray-100 h-full min-h-screen justify-center ">
+                        <div className="flex flex-nowrap justify-center mb-10">
                             <Sheet data={{ date:this.state.dateFileOral , changeDate:this.changeDate , notes:this.state.notesOral , setNotes:this.setNotes}} type="Oral"/>
                             <Sheet data={{ date:this.state.dateFileEcrit , changeDate:this.changeDate, notes:this.state.notesOral , setNotes:this.setNotes}} type="Ecrit"/>
                         </div>
+                        <div className="relative my-6 " >
+                            <div className="relative inset-x-0 top-0 mx-2 rounded-md bg-gray-700 text-white my-3 ">
+                                <br/>
+                                {this.state.notes.map((e,k)=>  <Student function={{delete:this.delete}} keys={k} data={e}/>)}
 
-                        <div className="container my-6 mx-auto rounded-md bg-gray-700 text-white p-4 ">
-                            {this.state.notes.map((e,k)=> <Student key={k} data={e}/>)}
-                           
+                            </div>
                         </div>
+                        
 
-                        <div className="flex flex-rows justify-center " >
+                        <div className="relative flex flex-rows justify-center" >
                             <button id="bouttonToeic"className="transition duration-150 ease-in-out bg-gray-300  hover:bg-green-500 hover:text-white text-grey-300  my-10 mx-10 py-2 px-4 rounded round-6 text-lg" onClick={(e) => this.clickToeic(e)}>Toeic Officiel</button>
                             <Selector  data={{loadId: this.loadId , id:this.state.idProfesseur , type:"professeurs"}}/>
                             <Selector  data={{loadId: this.loadId , id:this.state.idClasse , type:"classes"}}/>
@@ -186,4 +203,3 @@ export default class ToeicImportation extends Component {
             )
         }
 }
-
