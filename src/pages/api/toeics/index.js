@@ -8,13 +8,15 @@ export default async (req, res) => {
         
         case 'POST':
         
-            var localDate = req.body.date
             
-            const Existing = await prisma.$queryRaw`Select * from toeics where date=${localDate}`
+            const Existing = await prisma.$queryRaw`Select * from toeics where date=${req.body.date} and idProfesseur=${req.body.idProfesseur} and idClasse=${req.body.idClasse}`
             if(Existing.length == 0){ // on verifie que l'élèves est bien unique
                 const savedToeic = await prisma.toeics.create({
                     data: {
-                        date: localDate,
+                        date: req.body.date,
+                        idProfesseur:req.body.idProfesseur,
+                        idClasse: req.body.idClasse,
+                        officiel:req.body.officiel,
                     },
                 })
                 res.json(savedToeic)
@@ -25,8 +27,8 @@ export default async (req, res) => {
 
         
         case 'GET' :
-                const toeicData = await prisma.$queryRaw("Select *  from toeics")           
-                res.json(toeicData)
+                const data = await prisma.$queryRaw("Select *  from toeics")           
+                res.json(data)
             break
 
         default:

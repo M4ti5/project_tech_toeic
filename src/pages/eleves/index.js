@@ -34,7 +34,7 @@ export default function vueEleves({elevesList}) {
                             <tbody>
                                 <tr>
                                     <td>
-                                        <ListStudents nom={e.Nom} prenom={e.Prenom} /*numEtudiant={}*/ classe={e.classes} groupe={e.groupes} />
+                                        <ListStudents nom={e.nom} prenom={e.prenom} classe={e.classes} />
                                     </td>
                                     <td>
                                         <Link as= {`/eleves/${e.idEleve}`} href="/eleves/[id]" key={i}>

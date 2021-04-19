@@ -72,9 +72,7 @@ export default function ViewEleve({eleveInit, resultatsToeicsInit}){
 
     return(
     <div>
-            <Header title={eleve[0].Nom+" "+eleve[0].Prenom}/>
-
-            {results.forEach(element => (console.log(element)))}
+            <Header dl={{type:"eleve",id:eleve[0].idEleve}} title={eleve[0].nom+" "+eleve[0].prenom}/>
 
             <main>
                 <div>

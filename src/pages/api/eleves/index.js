@@ -5,32 +5,42 @@ const prisma = new PrismaClient()
 export default async (req, res) => {
     
     switch(req.method){
-        
+
         case 'POST':
         
-            var localNom = req.body.Nom.toUpperCase()
-            var localPrenom = req.body.Prenom.toLowerCase()
+            var localNom = req.body.nom.toUpperCase()
+            var localPrenom = req.body.prenom.toLowerCase()
             localPrenom = localPrenom.replace(localPrenom.charAt(0),localPrenom.charAt(0).toUpperCase())
 
             const Existing = await prisma.$queryRaw`Select * from eleves where Nom=${localNom} AND Prenom=${localPrenom}`
-           
-            if(Existing.length == 0){ // on verifie que l'élèves est bien unique
-                
-                const savedEleves = await prisma.eleves.create({
+            
+            if(Existing.length == 0 && isNaN(parseInt(req.body.prenom))){ // on verifie que l'élèves est bien unique & que c'est pas un chiffre
+
+                var savedEleves = await prisma.eleves.create({
                     data: {
-                        Nom: localNom,
-                        Prenom: localPrenom,
+                        nom: localNom,
+                        prenom: localPrenom,
                     },
                 })
-                res.json(savedEleves)
-            }else{
-                res.json("Erreur - Eleves existant")
+                
             }
+            
+            //Ajoutes des Composantes Falcutatives 
+
+            if(req.body.idProfesseur != undefined){
+                await prisma.$queryRaw`UPDATE eleves SET idProfesseur = ${req.body.idProfesseur} WHERE nom=${req.body.nom} and prenom=${req.body.prenom}`
+            }
+            if(req.body.idClasse != undefined){
+                await prisma.$queryRaw`UPDATE eleves SET idClasse = ${req.body.idClasse} WHERE nom=${req.body.nom} and prenom=${req.body.prenom}`
+            }
+
+            res.json(savedEleves)
+
             break
 
         
         case 'GET' :
-                const eleveData = await prisma.$queryRaw("Select idEleve , Nom , Prenom , idClasse , idGroupe , idProfesseur from eleves")           
+                const eleveData = await prisma.$queryRaw("Select idEleve , Nom , Prenom , idClasse , idProfesseur from eleves")           
                 res.json(eleveData)
             break
 

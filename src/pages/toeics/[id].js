@@ -171,7 +171,7 @@ function afficherEtudiant({resultats, listEtudiant}){
   var tab=new Array ()
   for(var i =  0; i<taille ;i++){
     const total = scoreTotal({resultats}, i)
-    tab[i] = <h1>{etudiant[i].Nom+' '+etudiant[i].Prenom+' | Score total : '+total}</h1>
+    tab[i] = <h1>{etudiant[i].nom+' '+etudiant[i].prenom+' | Score total : '+total}</h1>
   }
   return tab
 }
@@ -193,7 +193,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
     return(
 
     <div>
-            <Header title={"Toeic du "+toeic[0].date}/>
+            <Header dl={{type:"toeic",id:toeic[0].idToeic}} title={"Toeic du "+toeic[0].date}/>
 
             <main>
                 <div>

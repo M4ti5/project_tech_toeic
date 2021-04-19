@@ -9,7 +9,7 @@ import PieChart from './pieChart.js'
 export default class Student extends React.Component {   
 
     edit() {
-        {this.props.data[0] = 'NewName'}
+        
     }
     
     delete() {
@@ -72,7 +72,7 @@ export default class Student extends React.Component {
                                                     <div className="flex items-center">
                                                             <div className="ml-4">
                                                                 <div className="text-sm font-medium text-gray-900">
-                                                                    {this.props.data.Nom}
+                                                                    {this.props.data.nom}
                                                                 </div>
                                                             </div>
                                                     </div>

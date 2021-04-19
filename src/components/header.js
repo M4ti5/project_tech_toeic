@@ -38,7 +38,7 @@ export default class Header extends Component {
     
                 <div>
     
-                    <HeaderTab title={this.props.title}/>
+                    <HeaderTab dl={this.props.dl}   title={this.props.title}/>
                 </div>
     
             </div>

@@ -19,29 +19,22 @@ model classes {
   idAnnee       String              @default(cuid())
   annee_classes annee_classes      @relation(fields: [idAnnee], references: [idAnnee])
   eleves        eleves[]
+  toeics        toeics[]
 }
 
 model eleves {
   idEleve         String             @id @default(cuid())
   idClasse        String?            @default(cuid())
-  idGroupe        String?            @default(cuid())
   idProfesseur    String?            @default(cuid())
-  Nom             String
-  Prenom          String
+  nom             String
+  prenom          String
   login           String?
   password        String?
   classes         classes?          @relation(fields: [idClasse], references: [idClasse])
-  groupes         groupes?          @relation(fields: [idGroupe], references: [idGroupe])
   professeurs     professeurs?      @relation(fields: [idProfesseur], references: [idProfesseur])
   resultats_toeic resultats_toeic[]
 }
 
-model groupes {
-  idGroupe     String             @id @default(cuid())
-  idProfesseur String             @default(cuid())
-  professeurs  professeurs @relation(fields: [idProfesseur], references: [idProfesseur])
-  eleves       eleves[]
-}
 
 model professeurs {
   idProfesseur String             @id @default(cuid())
@@ -50,7 +43,7 @@ model professeurs {
   login        String?
   password     String?
   eleves       eleves[]
-  groupes      groupes[]
+  toeics       toeics[]
 }
 
 model resultats_toeic {
@@ -70,6 +63,11 @@ model resultats_toeic {
 
 model toeics {
   idToeic         String             @id @default(cuid())
+  idProfesseur    String             
+  idClasse        String
   date            String
+  officiel        Boolean
+  professeurs     professeurs @relation(fields: [idProfesseur], references: [idProfesseur])
+  classes         classes     @relation(fields: [idClasse], references: [idClasse])
   resultats_toeic resultats_toeic[]
 }

@@ -7,18 +7,17 @@ export default async (req, res) => {
     switch(req.method){
 
         case 'POST':
-            await fetch('http://localhost:3000/api/toeics/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'POST',body:JSON.stringify({date:req.body.date})})
-            var localToeic = await prisma.$queryRaw`Select idToeic from toeics where date=${req.body.date}`
+            await fetch('http://localhost:3000/api/toeics/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'POST',body:JSON.stringify({date:req.body.date,idProfesseur:req.body.idProfesseur,idClasse:req.body.idClasse,officiel:req.body.officiel})})
+            var localToeic = await prisma.$queryRaw`Select idToeic from toeics where date=${req.body.date} and idProfesseur=${req.body.idProfesseur} and idClasse=${req.body.idClasse}`
             
-            await fetch('http://localhost:3000/api/eleves/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'POST',body:JSON.stringify({Nom:req.body.Nom, Prenom:req.body.Prenom,})})
-            
-            var localEleve =  await prisma.$queryRaw`Select idEleve from eleves where Nom=${req.body.Nom} and Prenom=${req.body.Prenom}`
-            console.log(localToeic,localEleve)
+            await fetch('http://localhost:3000/api/eleves/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'POST',body:JSON.stringify({nom:req.body.nom, prenom:req.body.prenom,idProfesseur:req.body.idProfesseur,idClasse:req.body.idClasse})})
+            var localEleve =  await prisma.$queryRaw`Select idEleve from eleves where Nom=${req.body.nom} and Prenom=${req.body.prenom}`
+
             const Existing = await prisma.$queryRaw`Select * from resultats_toeic where idEleve=${localEleve[0].idEleve} AND numToeic=${localToeic[0].idToeic}`
             
 
             if(Existing.length == 0){ // on verifie que l'élèves est bien unique
-                const savedToeic = await prisma.resultats_toeic.create({
+                const savedResult = await prisma.resultats_toeic.create({
                     data: {
                         idEleve:localEleve[0].idEleve,
                         numToeic:localToeic[0].idToeic,
@@ -32,7 +31,7 @@ export default async (req, res) => {
 
                     },
                 })
-                res.json(savedToeic)
+                res.json(savedResult)
                 
             }else{
                 res.json("Erreur - Toeic existant")
@@ -41,8 +40,8 @@ export default async (req, res) => {
 
         
         case 'GET' :
-                const toeicData = await prisma.$queryRaw("Select *  from resultats_toeic")           
-                res.json(toeicData)
+                const data = await prisma.$queryRaw("Select *  from resultats_toeic")           
+                res.json(data)
             break
 
         default:

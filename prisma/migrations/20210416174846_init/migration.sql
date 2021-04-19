@@ -16,22 +16,13 @@ CREATE TABLE "classes" (
 CREATE TABLE "eleves" (
     "idEleve" TEXT NOT NULL PRIMARY KEY,
     "idClasse" TEXT,
-    "idGroupe" TEXT,
     "idProfesseur" TEXT,
-    "Nom" TEXT NOT NULL,
-    "Prenom" TEXT NOT NULL,
+    "nom" TEXT NOT NULL,
+    "prenom" TEXT NOT NULL,
     "login" TEXT,
     "password" TEXT,
     FOREIGN KEY ("idClasse") REFERENCES "classes" ("idClasse") ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY ("idGroupe") REFERENCES "groupes" ("idGroupe") ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY ("idProfesseur") REFERENCES "professeurs" ("idProfesseur") ON DELETE SET NULL ON UPDATE CASCADE
-);
-
--- CreateTable
-CREATE TABLE "groupes" (
-    "idGroupe" TEXT NOT NULL PRIMARY KEY,
-    "idProfesseur" TEXT NOT NULL,
-    FOREIGN KEY ("idProfesseur") REFERENCES "professeurs" ("idProfesseur") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -62,5 +53,10 @@ CREATE TABLE "resultats_toeic" (
 -- CreateTable
 CREATE TABLE "toeics" (
     "idToeic" TEXT NOT NULL PRIMARY KEY,
-    "date" TEXT NOT NULL
+    "idProfesseur" TEXT NOT NULL,
+    "idClasse" TEXT NOT NULL,
+    "date" TEXT NOT NULL,
+    "officiel" BOOLEAN NOT NULL,
+    FOREIGN KEY ("idProfesseur") REFERENCES "professeurs" ("idProfesseur") ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY ("idClasse") REFERENCES "classes" ("idClasse") ON DELETE CASCADE ON UPDATE CASCADE
 );

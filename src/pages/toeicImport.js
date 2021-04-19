@@ -6,7 +6,7 @@ import Header from '../components/header'
 import Sheet  from "../components/sheet" 
 import Student from '../components/student';
 import WarningBox from '../components/warningBox'
-
+import Selector from "../components/selector"
 
 
 export default class ToeicImportation extends Component {
@@ -15,6 +15,7 @@ export default class ToeicImportation extends Component {
             super(props);
             this.changeDate = this.changeDate.bind(this)
             this.setNotes = this.setNotes.bind(this)
+            this.loadId = this.loadId.bind(this)
             this.state = {
               warning:[],
               dateFileOral:'',
@@ -22,9 +23,14 @@ export default class ToeicImportation extends Component {
               date:'',
               notesOral:[],
               notesEcrit:[],
-              notes:[]
+              notes:[],
+              idProfesseur:undefined,
+              idClasse:undefined,
+              toeicOfficiel: false,
+
             }
         }
+
         setNotes(typeFile,data){
             switch(typeFile){
                 case "Oral" :
@@ -39,7 +45,7 @@ export default class ToeicImportation extends Component {
                     var localNotes= []
                     for(var i=0;i<this.state.notesOral.length;i++){
                         var temp=[]
-                        temp['Nom']=(this.state.notesOral[i][0])
+                        temp['nom']=(this.state.notesOral[i][0])
                         temp['ScoreOral']=(this.state.notesOral[i][1])
                         temp['ScoreEcrit']=(this.state.notesEcrit[i][1])
                         temp['Partie1']=(this.state.notesOral[i][4])
@@ -87,59 +93,96 @@ export default class ToeicImportation extends Component {
             } 
         }
 
+        loadId(id, typeId){
+            switch(typeId){
+              case "professeurs":
+                this.setState({idProfesseur: id})
+                break
+              case "classes":
+                this.setState({idClasse: id})
+            }
+          }
+
+        clickToeic(e){
+            e.preventDefault();
+            switch(this.state.toeicOfficiel){
+                case true:
+                    document.getElementById("bouttonToeic").classList.add("bg-gray-300")
+                    document.getElementById("bouttonToeic").classList.remove("bg-green-500")
+                    document.getElementById("bouttonToeic").classList.remove("text-white")
+                    this.setState({toeicOfficiel:false})
+                    break
+                case false:
+                    document.getElementById("bouttonToeic").classList.remove("bg-gray-300")
+                    document.getElementById("bouttonToeic").classList.add("bg-green-500")
+                    document.getElementById("bouttonToeic").classList.add("text-white")
+                    this.setState({toeicOfficiel:true})
+                    break
+            }
+        }
+
         async sendToeic(e){ // envoie l'entiereter du toeic dans la base de donné
             e.preventDefault();
+
             var data = this.state.notes
             if(data.length!=0){
 
                 for(var i = 0; i < data.length-1; i++){//
-                    var temp = data[i].Nom.split(' ')
-                    var Prenom = temp[temp.length-2].toLowerCase()
-                    Prenom = Prenom.replace(Prenom.charAt(0),Prenom.charAt(0).toUpperCase())
+                    var temp = data[i].nom.split(' ')
+                    var prenom = temp[temp.length-2].toLowerCase()
+                    prenom = prenom.replace(prenom.charAt(0),prenom.charAt(0).toUpperCase())
                     
-                    var Nom = data[i].Nom.replace(Prenom,"").toUpperCase()
-                    
-                    await fetch('http://localhost:3000/api/resultats/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'POST',body:JSON.stringify({Nom:Nom, Prenom:Prenom,date:this.state.date,Partie1:data[i].Partie1,Partie2:data[i].Partie2,Partie3:data[i].Partie3,Partie4:data[i].Partie4,Partie5: data[i].Partie5,Partie6:data[i].Partie6,Partie7:data[i].Partie7 })})
+                    var nom = data[i].nom.replace(prenom,"").toUpperCase()
+                    console.log("idProfesseur :"+this.state.idProfesseur+" | idClasse :"+this.state.idClasse)
+                    await fetch('http://localhost:3000/api/resultats/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'POST',body:JSON.stringify({nom:nom, prenom:prenom,date:this.state.date,idProfesseur:this.state.idProfesseur,idClasse:this.state.idClasse,officiel:this.state.toeicOfficiel,Partie1:data[i].Partie1,Partie2:data[i].Partie2,Partie3:data[i].Partie3,Partie4:data[i].Partie4,Partie5: data[i].Partie5,Partie6:data[i].Partie6,Partie7:data[i].Partie7 })})
                 }
                 alert('Le Toeic du '+this.state.date+' est envoyé !')
-                this.setState({date:'',notes:[]})
+                //this.setState({date:'',notes:[]})
+                document.location.reload()
             }else{
                 alert("Aucune données à été saisie")
+                
             }
+
         }
     
     
         render(){
             
-            console.log(this.state.notes)
-            
-            return(
+            //console.log(this.state.notes!=""? this.state.notes : ""),
+            //console.log(this.state.idProfesseur!="" ? this.state.idProfesseur :"")
+            //console.log(this.state.idClasse!="" ? this.state.idClasse :"")
+            //console.log(this.state.toeicOfficiel)
 
-                <div className="bg-gray-100">
+            return(
+                
+                <div className="bg-gray-100 h-full min-h-screen  flex flex-col">
 
                     <Header title={"Importation du Toiec "+ this.state.date }/>
                     {this.state.warning}
                     
                     {/*Corps de la page*/}
                 
-                    <main className="bg-gray-100 h-screen justify-center ">
+                    <main className="bg-gray-100 h-full min-h-screen justify-center ">
                         <div className="flex flex-nowrap justify-center">
                             <Sheet data={{ date:this.state.dateFileOral , changeDate:this.changeDate , notes:this.state.notesOral , setNotes:this.setNotes}} type="Oral"/>
                             <Sheet data={{ date:this.state.dateFileEcrit , changeDate:this.changeDate, notes:this.state.notesOral , setNotes:this.setNotes}} type="Ecrit"/>
                         </div>
 
                         <div className="container my-6 mx-auto rounded-md bg-gray-700 text-white p-4 ">
-                            {console.log(this.state.notes)}
-                           {this.state.notes.map((e,k)=> <Student key={k} data={e}/>)}
+                            {this.state.notes.map((e,k)=> <Student key={k} data={e}/>)}
                            
                         </div>
 
-                        <div>
-                            <button className=" bg-gray-700 hover:bg-blue-700 text-white font-bold my-10 ml-10 py-2 px-4 rounded round-6 " onClick={(e) => this.sendToeic(e)}>Enregistrer</button>
+                        <div className="flex flex-rows justify-center " >
+                            <button id="bouttonToeic"className="transition duration-150 ease-in-out bg-gray-300  hover:bg-green-500 hover:text-white text-grey-300  my-10 mx-10 py-2 px-4 rounded round-6 text-lg" onClick={(e) => this.clickToeic(e)}>Toeic Officiel</button>
+                            <Selector  data={{loadId: this.loadId , id:this.state.idProfesseur , type:"professeurs"}}/>
+                            <Selector  data={{loadId: this.loadId , id:this.state.idClasse , type:"classes"}}/>
+                            <button className=" transition duration-150 ease-in-out bg-gray-700 hover:bg-blue-400 text-white font-bold my-10 ml-10 py-2 px-4 rounded round-6 " onClick={(e) => this.sendToeic(e)}>Enregistrer</button>
                         </div>
                     </main>
-    
-                </div>
+                    <footer className="bg-gray-800  mt-36  h-12 w-full"></footer>
+                </div >
             )
         }
 }
