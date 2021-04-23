@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import PieChart from './pieChart.js'
+import PieChart from './pieChart'
 
 export default class QuickResumeStudent extends React.Component {
     render() {

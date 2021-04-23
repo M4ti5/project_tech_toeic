@@ -8,12 +8,13 @@ const prisma = new PrismaClient()
 
 export async function getServerSideProps(){
 
-    const toeics = await prisma.toeics.findMany()
+    const toeics = await prisma.$queryRaw`Select * from toeics t join professeurs p on  t.idProfesseur = p.idProfesseur join classes c on t.idClasse = c.idClasse`
     return{
         props:{
-            toeicList : toeics
+            toeicList : toeics,
         }
     }
+    
 }
 
 export default function vueEleves({toeicList}) {
@@ -23,12 +24,16 @@ export default function vueEleves({toeicList}) {
     return (
     <div>
         <Header title="Listes des Toeics"/>
-        {
+        {       
                 toeics.map((t, i) => (
                     <div>
                         <table>
+                            
                             <td className="w-80 px-6 py-4 whitespace-nowrap">
-                                <h1 className="text-center ml-2 font-semibold">Toeic du {t.date}</h1>
+                                <span className="text-center ml-2 font-semibold">{t.date}</span>
+                                <span className="text-center ml-2 font-semibold">{t.nom +" "+ t.prenom}</span>
+                                <span className="text-center ml-2 font-semibold">{t.nomClasse}</span>
+                                <span className={"text-center ml-2 "+ (t.officiel == true ? "text-green-500" : "text-red-500") +" font-semibold"}>{(t.officiel == true ? "officiel" : "non officiel")}</span>
                             </td>
                             <td className="w-80 px-6 py-4 whitespace-nowrap">
                                 <Link as= {`/toeics/${t.idToeic}`} href="/toeics/[id]" key={i}>

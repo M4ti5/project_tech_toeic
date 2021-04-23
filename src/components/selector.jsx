@@ -1,6 +1,7 @@
 
 import React,  { Component } from 'react'
 
+
 export default class Selector extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +19,7 @@ export default class Selector extends Component {
         }
     }
     async initSelctor(){
-        const data = await fetch("http://localhost:3000/api/"+this.props.data.type+"/", {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
+        const data = await  fetch( "http://localhost:3000"+"/api/"+this.props.data.type+"/", {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
         this.setState({choices:data})
     }
 

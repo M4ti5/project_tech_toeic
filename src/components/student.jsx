@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import PieChart from './pieChart.js'
+import PieChart from './pieChart'
 
 //<button className="bg-gray-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.sendToeic}>SEND</button>
 
@@ -41,7 +41,6 @@ export default class Student extends React.Component {
     
     static getDerivedStateFromProps(newProps, oldState) {
         if (newProps.data.nom !== oldState.nom) {
-            console.log("test")
 
           return {
             nom: newProps.data.nom,

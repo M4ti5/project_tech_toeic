@@ -26,7 +26,6 @@ export async function getServerSideProps({ params }){
             }
           })
 
-    console.log(params.idToeic)
     const etudiant = await prisma.$queryRaw`SELECT nom, prenom FROM eleves e JOIN resultats_toeic r ON r.idEleve=e.idEleve WHERE r.numToeic= ${params.id} ;`
 
     return{

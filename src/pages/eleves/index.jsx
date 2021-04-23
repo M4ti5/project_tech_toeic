@@ -10,10 +10,10 @@ const prisma = new PrismaClient()
 
 export async function getServerSideProps(){
 
-    const eleves = await prisma.eleves.findMany() // vas chercher tous les element de model eleves
+    const eleves = await prisma.$queryRaw`select e.idEleve , e.nom , e.prenom , p.nom as nomProf , p.prenom as prenomProf , c.nomClasse from eleves  e join professeurs p on  e.idProfesseur = p.idProfesseur join classes c on e.idClasse = c.idClasse`
     return{
         props:{
-            elevesList : eleves
+            elevesList : eleves,
         }
     }
 }
@@ -22,7 +22,7 @@ export default function vueEleves({elevesList}) {
 
     
     const [eleves , setEleves] = useState(elevesList)
-
+    
     return (
     <div>
         <Header title="Listes des Eleves"/>
@@ -34,7 +34,7 @@ export default function vueEleves({elevesList}) {
                             <tbody>
                                 <tr>
                                     <td>
-                                        <ListStudents nom={e.nom} prenom={e.prenom} classe={e.classes} />
+                                        <ListStudents nom={e.nom} prenom={e.prenom} professeur={e.nomProf+" "+e.prenomProf} classe={e.nomClasse} />
                                     </td>
                                     <td>
                                         <Link as= {`/eleves/${e.idEleve}`} href="/eleves/[id]" key={i}>

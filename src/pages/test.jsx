@@ -8,8 +8,8 @@ export default class  Test extends Component {
   }
     
   render(){
-    return(
-     <h1>Zone de Test</h1>
+     return(
+     <h1>Page de Test</h1>
   )
 }
 }

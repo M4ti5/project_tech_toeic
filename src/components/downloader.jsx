@@ -1,4 +1,5 @@
 import { Component } from "react"
+import {scoreTotalToeic} from "../components/calulatorScore"
 import XLSX from "xlsx"
 import Image from 'next/image'
 
@@ -14,18 +15,19 @@ export default class  Downloader extends Component {
       case "eleve":
 
         var rawData = this.props.data
-        const eleve = await fetch('http://localhost:3000/api/eleves/'+rawData[0].idEleve+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
+        const eleve = await   fetch( "http://localhost:3000"+'/api/eleves/'+rawData[0].idEleve+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
         
         var data =[]
         for (let i = 0; i < rawData.length; i++) {
             var temp = []
+            console.log(rawData[i]+" : "+scoreTotalToeic(rawData[i]))
             //date
-            const tempToeic =   await fetch('http://localhost:3000/api/toeics/'+rawData[i].numToeic+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
+            const tempToeic =   await   fetch( "http://localhost:3000"+'/api/toeics/'+rawData[i].numToeic+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
             temp["Date Toeic"] = tempToeic[0].date 
             //Note sur 20
-            temp["/20"] = parseFloat(((rawData[i].scorePart1 + rawData[i].scorePart2 + rawData[i].scorePart3 + rawData[i].scorePart4 + rawData[i].scorePart5 + rawData[i].scorePart6 + rawData[i].scorePart7)*5/49.5).toFixed(2));
+            temp["/20"] = parseFloat((scoreTotalToeic(rawData[i])/49.5).toFixed(2))
             //Note Toeic Totale
-            temp["Total"] = (rawData[i].scorePart1 +rawData[i].scorePart2+rawData[i].scorePart3+rawData[i].scorePart4+rawData[i].scorePart5+rawData[i].scorePart6+rawData[i].scorePart7)*5
+            temp["Total"] = scoreTotalToeic(rawData[i])
 
             //Note Toeic Orale
             temp["Note Orale"] = (rawData[i].scorePart1 +rawData[i].scorePart2+rawData[i].scorePart3+rawData[i].scorePart4)
@@ -48,20 +50,20 @@ export default class  Downloader extends Component {
 
       case "toeic":
         var rawData = this.props.data
-         const toeic =   await fetch('http://localhost:3000/api/toeics/'+rawData[0].numToeic+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
+         const toeic =   await   fetch( "http://localhost:3000"+'/api/toeics/'+rawData[0].numToeic+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
         var data =[]
         for (let i = 0; i < rawData.length; i++) {
             var temp = []
             //Nom
-            const tempEleve =  await fetch('http://localhost:3000/api/eleves/'+rawData[i].idEleve+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
+            const tempEleve =  await   fetch( "http://localhost:3000"+'/api/eleves/'+rawData[i].idEleve+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
             temp["Nom"] = tempEleve[0].nom
             //Prenom
             temp["Prenom"] =  tempEleve[0].prenom
             //Note sur 20
             
-            temp["/20"] = parseFloat(((rawData[i].scorePart1 + rawData[i].scorePart2 + rawData[i].scorePart3 + rawData[i].scorePart4 + rawData[i].scorePart5 + rawData[i].scorePart6 + rawData[i].scorePart7)*5/49.5).toFixed(2));
+            temp["/20"] = parseFloat((scoreTotalToeic(rawData[i])/49.5).toFixed(2))
             //Note Toeic Totale
-            temp["Total"] = (rawData[i].scorePart1 +rawData[i].scorePart2+rawData[i].scorePart3+rawData[i].scorePart4+rawData[i].scorePart5+rawData[i].scorePart6+rawData[i].scorePart7)*5
+            temp["Total"] = scoreTotalToeic(rawData[i])
 
             //Note Toeic Orale
             temp["Note Orale"] = (rawData[i].scorePart1 +rawData[i].scorePart2+rawData[i].scorePart3+rawData[i].scorePart4)

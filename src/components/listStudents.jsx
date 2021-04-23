@@ -10,12 +10,12 @@ export default class ListStudents extends Component {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm text-gray-900">
-                    <span>19001234</span>
+                    <span>{this.props.professeur}</span>
                     </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm text-gray-900">
-                    <span>{/*this.props.classes*/} ING1</span>
+                    <span>{this.props.classe}</span>
                     </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">

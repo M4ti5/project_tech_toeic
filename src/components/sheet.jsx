@@ -53,6 +53,9 @@ export default class Sheet extends React.Component {
       
       /* find the date in name's file */
       var pos = file.name.lastIndexOf(".");
+      if( file.name.includes(" (")){
+        pos =  file.name.lastIndexOf(" (")
+      }
       this.date = file.name.substring(pos-8, pos)
 
       /* Update state */

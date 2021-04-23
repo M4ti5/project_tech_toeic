@@ -19,7 +19,7 @@ export default class ListToeicStudents extends Component {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                        {this.props.note200} / 200
+                        {this.props.note}
                     </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -28,7 +28,7 @@ export default class ListToeicStudents extends Component {
                     </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-green-800">
+                    <span className={"px-2 inline-flex text-xs leading-5 font-semibold rounded-full "+(this.props.threshold == "Oui" ?"bg-green-100 text-green-800" :"bg-red-100  text-red-800")}>
                         {this.props.threshold}
                     </span>
                 </td>

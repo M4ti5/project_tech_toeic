@@ -1,5 +1,4 @@
 import React,  { Component } from 'react'
-import { PrismaClient, Prisma } from '@prisma/client'
 
 
 import Header from '../components/header'
@@ -129,14 +128,14 @@ export default class ToeicImportation extends Component {
             var data = this.state.notes
             if(data.length!=0){
 
-                for(var i = 0; i < data.length-1; i++){//
+                for(var i = 0; i < data.length; i++){//
                     var temp = data[i].nom.split(' ')
                     var prenom = temp[temp.length-2].toLowerCase()
                     prenom = prenom.replace(prenom.charAt(0),prenom.charAt(0).toUpperCase())
                     
                     var nom = data[i].nom.replace(prenom,"").toUpperCase()
                     console.log("idProfesseur :"+this.state.idProfesseur+" | idClasse :"+this.state.idClasse)
-                    await fetch('http://localhost:3000/api/resultats/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'POST',body:JSON.stringify({nom:nom, prenom:prenom,date:this.state.date,idProfesseur:this.state.idProfesseur,idClasse:this.state.idClasse,officiel:this.state.toeicOfficiel,Partie1:data[i].Partie1,Partie2:data[i].Partie2,Partie3:data[i].Partie3,Partie4:data[i].Partie4,Partie5: data[i].Partie5,Partie6:data[i].Partie6,Partie7:data[i].Partie7 })})
+                    await   fetch( "http://localhost:3000"+'/api/resultats/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'POST',body:JSON.stringify({nom:nom, prenom:prenom,date:this.state.date,idProfesseur:this.state.idProfesseur,idClasse:this.state.idClasse,officiel:this.state.toeicOfficiel,Partie1:data[i].Partie1,Partie2:data[i].Partie2,Partie3:data[i].Partie3,Partie4:data[i].Partie4,Partie5: data[i].Partie5,Partie6:data[i].Partie6,Partie7:data[i].Partie7 })})
                 }
                 alert('Le Toeic du '+this.state.date+' est envoyé !')
                 //this.setState({date:'',notes:[]})

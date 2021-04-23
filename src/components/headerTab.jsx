@@ -15,11 +15,11 @@ export default class HeaderTab extends Component {
         if(this.props.dl != null){
             switch(this.props.dl.type){
                 case "eleve":
-                    var temp = await fetch('http://localhost:3000/api/resultats/'+this.props.dl.id+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
+                    var temp = await   fetch( "http://localhost:3000"+'/api/resultats/'+this.props.dl.id+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
                     this.setState({dlButton:<Downloader type="eleve" data={temp} />}) 
                 break
                 case "toeic":
-                    var temp = await fetch('http://localhost:3000/api/resultats/idEleve/'+this.props.dl.id+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
+                    var temp = await   fetch( "http://localhost:3000"+'/api/resultats/idEleve/'+this.props.dl.id+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
                     this.setState({dlButton:<Downloader type="toeic" data={temp} />}) 
                 break
                
