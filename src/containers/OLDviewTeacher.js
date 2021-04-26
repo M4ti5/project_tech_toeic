@@ -16,7 +16,7 @@ export default class VueAcceuil extends Component {
                     <header>
                     
 
-                        <h2 className="teacher">Teacher</h2>
+                        <h2 className="teacher">Teacher </h2>
                         <h3 className="administration">Administration</h3>
 
                         <div className="teacher_buttons_list">
