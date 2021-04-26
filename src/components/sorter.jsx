@@ -1,16 +1,10 @@
-import { Component} from 'react'
 
-import Header from '../../components/header'
-import Link from 'next/link'
+export class Sorter{
+   
+    constructor(data){
+        this.liste = data
+    }
 
-export default class VueEleves extends Component{
-
-    constructor(props){
-        super(props);
-        this.state = {
-            liste: []
-        }
-      }
     sortByNom(keyA, keyB) {
       if( keyA.nom < keyB.nom){
         return -1
@@ -41,6 +35,7 @@ export default class VueEleves extends Component{
     }
   
     sortByDate(keyA, keyB) {
+      console.log("test")
       //Par Année
       if( keyA.date.substr(6,4) < keyB.date.substr(6,4)){
         return 1
@@ -112,12 +107,16 @@ export default class VueEleves extends Component{
     }
   
 
-    getSort(typeOfSort){
+    static getSort(typeOfSort){
       switch(typeOfSort){
           case "Professeur":
               return this.sortByProfesseur
               break
+          case "Eleve":
+              return this.sortByNom
+              break
           case "Date":
+              
               return this.sortByDate
               break
           case "Officiel":
@@ -132,48 +131,5 @@ export default class VueEleves extends Component{
               break
       }
     }
-    async init(){
-        this.setState({liste :await fetch( "http://localhost:3000"+'/api/toeics/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())})
-    }
-    componentDidMount(){
-        this.init()
-    }
 
-    render(){
-        return (
-            <div>
-        <Header title="Listes des Toeics"/>
-        <div className="flex flex-nowrap space-x-3 margin w-full justify-center mb-10">
-
-            <button className="bg-purple-500 text-white rounded r-6 p-2 hover:bg-purple-700" onClick = {() =>this.setState({liste: this.state.liste.sort(this.getSort("Date"))}) }>Tri par Date</button>
-            <button className="bg-purple-500 text-white rounded r-6 p-2 hover:bg-purple-700" onClick = {() =>this.setState({liste: this.state.liste.sort(this.getSort("Classe"))}) }>Tri par Classe</button>
-            <button className="bg-purple-500 text-white rounded r-6 p-2 hover:bg-purple-700" onClick = {() =>this.setState({liste: this.state.liste.sort(this.getSort("Professeur"))}) }>Tri par Professeur</button>
-            <button className="bg-purple-500 text-white rounded r-6 p-2 hover:bg-purple-700" onClick = {() =>this.setState({liste: this.state.liste.sort(this.getSort("Officiel"))}) }>Tri par Officiel</button>
-        </div>
-        {       
-                this.state.liste.map((t, i) => (
-                    <div>
-                        <table>
-                            
-                            <td className="w-80 px-6 py-4 whitespace-nowrap">
-                                <span className="text-center ml-2 font-semibold">{t.date}</span>
-                                <span className="text-center ml-2 font-semibold">{t.nom +" "+ t.prenom}</span>
-                                <span className="text-center ml-2 font-semibold">{t.nomClasse}</span>
-                                <span className={"text-center ml-2 "+ (t.officiel == true ? "text-green-500" : "text-red-500") +" font-semibold"}>{(t.officiel == true ? "officiel" : "non officiel")}</span>
-                            </td>
-                            <td className="w-80 px-6 py-4 whitespace-nowrap">
-                                <Link as= {`/toeics/${t.idToeic}`} href="/toeics/[id]" key={i}>
-                                    <button className="bg-gray-600 text-white px-4 py-2 border rounded-md hover:bg-white hover:border-indigo-500 hover:text-black ">
-                                        Voir
-                                    </button>
-                                </Link>
-                            </td>
-                        </table>
-                    </div>
-                ))
-        } 
-        
-    </div>
-    )
-}
 }

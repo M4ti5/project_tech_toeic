@@ -27,7 +27,7 @@ export default async (req, res) => {
 
         
         case 'GET' :
-                const data = await prisma.$queryRaw("Select *  from toeics")           
+                const data = await prisma.$queryRaw("Select * from toeics t join professeurs p on  t.idProfesseur = p.idProfesseur join classes c on t.idClasse = c.idClasse")           
                 res.json(data)
             break
 
