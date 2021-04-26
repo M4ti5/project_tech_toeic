@@ -1,7 +1,7 @@
 import React,  { Component } from 'react'
 import Header from '../components/header.js'
 import Calendar from 'react-calendar'
-import PieChart from '../components/pieChart.js'
+import PieChart from '../components/pieChart'
 
 //npm install react-calendar
 
