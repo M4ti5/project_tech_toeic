@@ -121,7 +121,7 @@ export default class  vueEleves extends Component {
             var init = this.state.liste
            
             for(var i = 0; i< init.length;i++){
-                if(init[i].nom.includes(motif) || init[i].prenom.includes(motif)){
+                if(init[i].nom.toLowerCase().includes(motif.toLowerCase()) || init[i].prenom.toLowerCase().includes(motif.toLowerCase())){
                     console.log(init[i].nom)
                     temp.push(init[i])
                 }
@@ -142,15 +142,15 @@ export default class  vueEleves extends Component {
         return (
             <div>
         <Header title="Listes des Eleves"/>
-        <div className="flex flex-nowrap space-x-3 margin w-full justify-center mb-10">
+        <div className="flex flex-nowrap space-x-3 margin w-full justify-center my-10">
 
-            <div className="relative text-gray-600">
+            <div className="relative text-gray-600 w-1/2">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                 <button type="submit" class="p-1 focus:outline-none focus:shadow-outline">
                     <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </button>
                 </span>
-                <input type="search" name="q" class="py-2 text-sm bg-gray-100 rounded-md pl-10 focus:outline-none w-100 " placeholder="Rechercher..." autocomplete="off" value={this.state.search}  onChange={e => this.search(e.target.value)}/>
+                <input type="search" name="q" class="py-2 text-sm bg-gray-100 rounded-md pl-10 focus:outline-none w-3/4 " placeholder="Rechercher..." autocomplete="off" value={this.state.search}  onChange={e => this.search(e.target.value)}/>
             </div>
             <button className="bg-purple-500 text-white rounded r-6 p-1 hover:bg-purple-700" onClick = {() =>this.setState({liste: this.state.liste.sort(this.getSort("Nom"))}) }>Tri par Nom</button>
             <button className="bg-purple-500 text-white rounded r-6 p-1 hover:bg-purple-700" onClick = {() =>this.setState({liste: this.state.liste.sort(this.getSort("Classe"))}) }>Tri par Classe</button>
