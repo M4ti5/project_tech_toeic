@@ -40,7 +40,6 @@ export default class VueEleves extends Component{
         return 0
       }
         return 0
-
     }
   
     sortByDate(keyA, keyB) {
