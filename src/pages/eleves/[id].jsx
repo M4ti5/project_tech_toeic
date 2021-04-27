@@ -133,12 +133,21 @@ export default function ViewEleve({eleveInit, resultatsToeicsInit}){
 
                 </div>
 
-                <div >
-                  <br></br><h1 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Progression </h1>
-                  <div className="w-300">
-                    <LineChart dataList={results} labelList={labelLine}/>
-                  </div>
-                </div>  
+                <section className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-8">
+                        <div className="">
+                            
+                        </div>
+                        <div className="bg-gray-100 shadow-lg rounded p-3">
+                            <h1 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Progression </h1>
+                            <div>
+                                <LineChart dataList={results} labelList={labelLine}/>
+                            </div>
+                        </div>  
+                        <div>
+                            
+                        </div>
+                    </section>
+ 
             </main>
             
       </div>

@@ -29,6 +29,10 @@ export default class Header extends Component {
                             <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Elèves</a>
                             </Link>
 
+                            <Link as = '/gestionPassage' href="/gestionPassage">
+                            <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Gestion</a>
+                            </Link>
+
                           </div>
                         </div>
                       </div>

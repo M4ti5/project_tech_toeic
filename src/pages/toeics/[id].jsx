@@ -4,7 +4,7 @@ import {PrismaClient} from '@prisma/client'
 
 import Header from '../../components/header'
 import PieChart from '../../components/pieChart'
-import LineChart from '../../components/lineChart'
+import FormAddStudent from '../../components/formAddStudent'
 
 const prisma = new PrismaClient()
 
@@ -153,36 +153,8 @@ function reussite({resultats}){
 
 function scoreTotal({resultats}, i){
   const [result , setResult] = useState(resultats)
-  var scoreOral = result[i].scorePart1 + result[i].scorePart2 + result[i].scorePart3 + result[i].scorePart4
-  var scoreEcrit = result[i].scorePart5 + result[i].scorePart6 + result[i].scorePart7
-  var scoreTotalOral = 0
-  var scoreTotalEcrit = 0
-
-  //Calcul scoreOral
-  if(0 <= scoreOral && scoreOral <= 6){scoreTotalOral = 5}
-  else if(scoreOral >= 7){
-    scoreTotalOral = 5
-    if(scoreOral >= 90){scoreOral = 90}
-    for(var i = 7 ; i <= scoreOral ; i++){
-      if(i==26 || i==35 ||i==44 ||i==47 ||i==48 ||i==53 ||i==56 ||i==59 ||i==64 ||i==67 ||i==70 ||i==77 ||i==80 ||i==83){
-        scoreTotalOral += 10
-      }else{scoreTotalOral += 5}
-    }
-  }
-
-  //Calcul scoreEcrit
-  if(0 <= scoreEcrit && scoreEcrit <= 15){scoreTotalEcrit = 5}
-  else if(16 <= scoreEcrit){
-    scoreTotalEcrit = 5
-    if(scoreEcrit >= 97){scoreEcrit = 97}
-    for(var j = 16 ; j <= scoreEcrit ; j++){
-      if(j==25 || j==28 ||j==33 ||j==38 ||j==41 ||j==46 ||j==49 ||j==56 ||j==61 ||j==64 ||j==67 ||j==72 ||j==77 ||j==89 ||j==92||j==94){
-        scoreTotalEcrit += 10
-      }else{scoreTotalEcrit += 5}
-    }
-  }
-  var scoreTotal = scoreTotalOral + scoreTotalEcrit
-  return scoreTotal
+  var score = (result[i].scorePart1 + result[i].scorePart2 + result[i].scorePart3 + result[i].scorePart4 + result[i].scorePart5 + result[i].scorePart6 + result[i].scorePart7)*5
+  return score
 }
 
 function nonReussi({resultats}, score){
@@ -198,10 +170,22 @@ function afficherEtudiant({resultats, listEtudiant}){
   var tab=new Array ()
   for(var i =  0; i<taille ;i++){
     const total = scoreTotal({resultats}, i)
-    tab[i] = <h1>{etudiant[i].nom+' '+etudiant[i].prenom+' | Score total : '+total}</h1>
+    tab[i] = <div className="w-3/4 mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
+        <td className="w-80 px-6 py-4 whitespace-nowrap">
+            <span className="text-center ml-2 font-semibold">{etudiant[i].nom+' '+etudiant[i].prenom}</span>
+        </td>
+        <td className="w-80 px-6 py-4 whitespace-nowrap">
+            <span className="text-center ml-2 font-semibold">Score Total : {total}</span>
+        </td>
+      </div>
   }
   return tab
 }
+
+export function test(e) {
+  console.log(e)
+}
+
 
 export default function ViewToeic({toeicInit, resultats, listEtudiant}){
     const [toeic , setToeic] = useState(toeicInit)
@@ -223,10 +207,16 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
             <Header dl={{type:"toeic",id:toeic[0].idToeic}} title={"Toeic du "+toeic[0].date}/>
 
             <main>
+
+                
+
                 <div>
                     <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Notes</h2>
                     <h1>{afficherEtudiant({resultats, listEtudiant})}</h1>
                 </div>
+
+                <FormAddStudent />
+
                 <div>
                   <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Statistique</h2>
                     <section className="grid grid-cols-1 sm:grid-cols-4 gap-4">

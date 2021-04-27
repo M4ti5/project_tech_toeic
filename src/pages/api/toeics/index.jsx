@@ -27,31 +27,9 @@ export default async (req, res) => {
 
         
         case 'GET' :
-                const data = await prisma.$queryRaw("Select * from toeics t join professeurs p on  t.idProfesseur = p.idProfesseur join classes c on t.idClasse = c.idClasse")           
+                const data = await prisma.$queryRaw("Select *  from toeics")           
                 res.json(data)
             break
-
-        case 'DELETE' :
-            const deleteResultat = await prisma.resultats_toeic.deleteMany({
-                where: {
-                    numToeic: req.body.idToeic,
-                  },
-            }) 
-            const deleteToeic = await prisma.toeics.deleteMany({
-                where: {
-                    idToeic: req.body.idToeic,
-                  },
-            })   
-            break
-
-        case 'PUT' :
-                console.log(req.body.date)
-                const modifi = await prisma.toeics.update({
-                    where: {idToeic: req.body.idToeic},
-                    data: {date: req.body.date},
-                });
-                res.json(modifi)
-        break
 
         default:
             res.status(405).json({message:' Methode non allouée'})

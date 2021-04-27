@@ -1,17 +1,15 @@
-import { Component, useState } from "react"
+import { Component } from "react"
+import Downloader from "../components/downloader"
 
 export default class  Test extends Component {
   
-  
-      
+  constructor(props){
+    super(props);
+  }
+    
   render(){
-
-
-    return(
-      <div>
-        <h1>Page de Test</h1>
-        
-      </div>
+     return(
+     <h1>Page de Test</h1>
   )
 }
 }
