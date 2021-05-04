@@ -46,6 +46,32 @@ export default async (req, res) => {
                 res.json(data)
             break
 
+        case 'DELETE' :
+            const deleteResultat = await prisma.resultats_toeic.deleteMany({
+                where: {
+                    idResultatToeic: req.body.idResultatToeic,
+                  },
+            }) 
+            res.json(deleteResultat)
+            break
+
+        case 'PUT' :
+            const modifi = await prisma.resultats_toeic.update({
+                where: {idResultatToeic: req.body.idResultatToeic
+                },
+                data: {
+                    scorePart1: req.body.scorePart1,
+                    scorePart2: req.body.scorePart2,
+                    scorePart3: req.body.scorePart3,
+                    scorePart4: req.body.scorePart4,
+                    scorePart5: req.body.scorePart5,
+                    scorePart6: req.body.scorePart6,
+                    scorePart7: req.body.scorePart7
+                },
+            });
+            res.json(modifi)
+            break
+
         default:
             res.status(405).json({message:' Methode non allouée'})
         break

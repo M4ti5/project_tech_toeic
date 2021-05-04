@@ -6,6 +6,9 @@ import Header from '../../components/header'
 import PieChart from '../../components/pieChart'
 import LineChart from '../../components/lineChart'
 import FormAddStudent from '../../components/formAddStudent'
+import Modifscore from '../../components/modifscore'
+import SupprimerResultat from '../../components/supprimerResultat'
+import ModifierResultat from '../../components/modifierResultat'
 
 const prisma = new PrismaClient()
 
@@ -27,7 +30,7 @@ export async function getServerSideProps({ params }){
             }
           })
 
-    const etudiant = await prisma.$queryRaw`SELECT nom, prenom FROM eleves e JOIN resultats_toeic r ON r.idEleve=e.idEleve WHERE r.numToeic= ${params.id} ;`
+    const etudiant = await prisma.$queryRaw`SELECT nom, prenom, r.idEleve, r.idResultatToeic, scorePart1, scorePart2, scorePart3, scorePart4, scorePart5, scorePart6, scorePart7 FROM eleves e JOIN resultats_toeic r ON r.idEleve=e.idEleve WHERE r.numToeic= ${params.id} ;`
 
     return{
         props:{
@@ -152,6 +155,12 @@ function reussite({resultats}){
   return reussi
 }
 
+async function supprimerToeic(e, idResultatToeic){
+  e.preventDefault();
+  await fetch( "http://localhost:3000"+'/api/resultats/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'DELETE',body:JSON.stringify({idResultatToeic: idResultatToeic})})
+  window.location.reload()
+}
+
 function scoreTotal({resultats}, i){
   const [result , setResult] = useState(resultats)
   var scoreOral = result[i].scorePart1 + result[i].scorePart2 + result[i].scorePart3 + result[i].scorePart4
@@ -196,16 +205,21 @@ function afficherEtudiant({resultats, listEtudiant}){
   const [result , setResult] = useState(resultats)
   const [etudiant , setEtudiant] = useState(listEtudiant)
   const taille = etudiant.length
+  var notes = []
   var tab=new Array ()
   for(var i =  0; i<taille ;i++){
     const total = scoreTotal({resultats}, i)
+    var idR = etudiant[i].idResultatToeic
+    notes[i]=etudiant[i]
     tab[i] = <div className="w-3/4 mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
         <td className="w-80 px-6 py-4 whitespace-nowrap">
             <span className="text-center ml-2 font-semibold">{etudiant[i].nom+' '+etudiant[i].prenom}</span>
         </td>
         <td className="w-80 px-6 py-4 whitespace-nowrap">
             <span className="text-center ml-2 font-semibold">Score Total : {total}</span>
-        </td>
+        </td> 
+        <ModifierResultat idResultatToeic={idR} /> 
+        <SupprimerResultat idResultatToeic={idR} /> 
       </div> 
        }
   return tab
