@@ -121,7 +121,7 @@ export default class  vueEleves extends Component {
             var init = this.state.liste
            
             for(var i = 0; i< init.length;i++){
-                if(init[i].nom.toLowerCase().includes(motif.toLowerCase()) || init[i].prenom.toLowerCase().includes(motif.toLowerCase())){
+                if(init[i].nom.toLowerCase().includes(motif.toLowerCase()) || init[i].prenom.toLowerCase().includes(motif.toLowerCase()) ||init[i].nomProf.toLowerCase().includes(motif.toLowerCase()) || init[i].prenomProf.toLowerCase().includes(motif.toLowerCase()) || init[i].nomClasse.toLowerCase().includes(motif.toLowerCase())){
                     console.log(init[i].nom)
                     temp.push(init[i])
                 }
@@ -135,7 +135,10 @@ export default class  vueEleves extends Component {
     async init(){
         this.setState({liste:await fetch( "http://localhost:3000"+'/api/eleves/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())})
     }
-
+    componentDidMount(){
+      this.init()
+      
+  }
 
     render(){
         

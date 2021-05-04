@@ -1,3 +1,3 @@
-import  {HomePage} from '../containers/HomePage'
+import  vueProfesseur from '../pages/professeurs/index'
 
-export default HomePage;
+export default vueProfesseur;
