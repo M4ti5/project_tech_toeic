@@ -5,7 +5,8 @@ import {PrismaClient} from '@prisma/client'
 import Header from '../../components/header'
 import PieChart from '../../components/pieChart'
 import LineChart from '../../components/lineChart'
-import FormAddStudent from '../../components/formAddStudent'
+import FormAddStudentToeic from '../../components/formAddStudentToeic'
+import Link from 'next/link'
 
 const prisma = new PrismaClient()
 
@@ -206,6 +207,13 @@ function afficherEtudiant({resultats, listEtudiant}){
         <td className="w-80 px-6 py-4 whitespace-nowrap">
             <span className="text-center ml-2 font-semibold">Score Total : {total}</span>
         </td>
+        <td className="w-80 px-6 py-4 whitespace-nowrap">
+            <Link as= {`/eleves/${result[i].idEleve}`} href="/eleves/[id]" key={i}>
+                <button className="bg-gray-600 text-white px-4 py-2 border rounded-md hover:bg-white hover:border-indigo-500 hover:text-black ">
+                    Voir
+                </button>
+             </Link>
+        </td>
       </div> 
        }
   return tab
@@ -225,6 +233,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
     const reussi = reussite({resultats})
     const taille = result.length
 
+
     return(
 
     <div>
@@ -235,9 +244,9 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                     <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Notes</h2>
                     <h1>{afficherEtudiant({resultats, listEtudiant})}</h1>
                 </div>
-                <FormAddStudent />
+                <FormAddStudentToeic />
                 <div>
-                  <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Statistique</h2>
+                  <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Statistiques</h2><br></br>
                     <section className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                         <div className="bg-gray-900 shadow-lg rounded p-3">
                             <div className="group relative">

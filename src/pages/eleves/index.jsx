@@ -3,6 +3,7 @@ import {PrismaClient} from '@prisma/client'
 
 import Header from '../../components/header'
 import ListStudents from "../../components/listStudents"
+import FormAddStudent from "../../components/formAddStudent"
 
 import Link from 'next/link'
 
@@ -157,6 +158,8 @@ export default class  vueEleves extends Component {
             <button className="bg-purple-500 text-white rounded r-6 p-1 hover:bg-purple-700" onClick = {() =>this.setState({liste: this.state.liste.sort(this.getSort("Professeur"))}) }>Tri par Professeur</button>
            
         </div>
+
+        <FormAddStudent />
 
         {console.log(this.state.liste)}
         {   
