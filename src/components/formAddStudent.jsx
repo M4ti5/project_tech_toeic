@@ -7,13 +7,7 @@ export default class FormAddStudent extends React.Component {
       this.state = {
           nom: '',
           prenom: '',
-          scorePart1: 0,
-          scorePart2: 0,
-          scorePart3: 0,
-          scorePart4: 0,
-          scorePart5: 0,
-          scorePart6: 0,
-          scorePart7: 0
+          idClasse: ''
         };
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,23 +21,18 @@ export default class FormAddStudent extends React.Component {
           [name]: value    });
       }
     async handleSubmit(event) {
-      //alert('Le nom a été soumis : ' + this.state.nom + this.state.prenom + this.state.scorePart1+ this.state.scorePart2+ this.state.scorePart3+ this.state.scorePart4+ this.state.scorePart5+ this.state.scorePart6+ this.state.scorePart7);
-      //const eleve = await fetch( "http://localhost:3000"+'/api/eleves/'+'[id]'+'/'+this.state.nom+this.state.prenom, {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
-      //console.log(eleve)
-      const eleve = await fetch( "http://localhost:3000"+'/api/eleves/[id]/AASSILA/Zineb/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
-        console.log(eleve)
+      alert('L\'élève a été soumis : ' + this.state.nom + this.state.prenom + this.state.classe);
+      
+      await   fetch( "http://localhost:3000"+'/api/eleves/[id]/'+this.state.nom+'/'+this.state.prenom+'/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'POST',body:JSON.stringify({nom:this.state.nom, prenom:this.state.prenom, idClasse:this.state.idClasse })})
       event.preventDefault();
     }
 
-    async test() {
-        const eleve = await fetch( "http://localhost:3000"+'/api/eleves/[id]/AASSILA/Zineb/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'GET'}).then(response => response.json())
-        console.log(eleve)
-    }
+    
   
     render() {
       return (
           <div className="my-8">
-              <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Ajouter Un Eleve</h2>
+              <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Ajouter un Elève</h2><br></br>
             <form onSubmit={this.handleSubmit}>
                 <label className="border-solid border-4 border-light-blue-500 mx-1">
                     Nom : 
@@ -54,32 +43,19 @@ export default class FormAddStudent extends React.Component {
                     <input type="text" name="prenom" value={this.state.prenom} onChange={this.handleChange} />        
                 </label>
                 <label className="border-solid border-4 border-light-blue-500 mx-1">
-                    Part 1 : 
-                    <input className="w-8" type="text" name="scorePart1" value={this.state.scorePart1} onChange={this.handleChange} />        
-                </label>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
-                    Part 2 : 
-                    <input className="w-8" type="text" name="scorePart2" value={this.state.scorePart2} onChange={this.handleChange} />        
-                </label>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
-                    Part 3 : 
-                    <input className="w-8" type="text" name="scorePart3" value={this.state.scorePart3} onChange={this.handleChange} />        
-                </label>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
-                    Part 4 : 
-                    <input className="w-8" type="text" name="scorePart4" value={this.state.scorePart4} onChange={this.handleChange} />        
-                </label>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
-                    Part 5 : 
-                    <input className="w-8" type="text" name="scorePart5" value={this.state.scorePart5} onChange={this.handleChange} />        
-                </label>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
-                    Part 6 : 
-                    <input className="w-8" type="text" name="scorePart6" value={this.state.scorePart6} onChange={this.handleChange} />        
-                </label>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
-                    Part 7 : 
-                    <input className="w-8" type="text" name="scorePart7" value={this.state.scorePart7} onChange={this.handleChange} />        
+                    Classe :
+                    <select value={this.state.idClasse} onChange={this.handleChange}>            
+                        <option value="cknkm2oll0135potc0nuqr1ba">ING1 - Calais</option>
+                        <option value="cknkm2olm0144potcillf6gv0">ING2 - Calais</option>
+                        <option value="cknkm2oln0153potczmfy59ba">ING3 - Calais</option>
+                        <option value="cknkm2olm0138potcvnb5idze">ING1 - Longuenesse</option>
+                        <option value="cknkm2olm0147potcasw26n06">ING2 - Longuenesse</option>
+                        <option value="cknkm2olo0156potczka9ndpj">ING3 - Longuenesse</option>
+                        <option value="cknkm2olm0141potc8plxjvjc">ING1 - Dunkerque</option>
+                        <option value="cknkm2oln0150potcakd6geyo">ING2 - Dunkerque</option>
+                        <option value="cknkm2olo0159potc7xu6m6ui">ING3 - Dunkerque</option>
+                        <option value="cknoo4gon0120sstcm36xkeww">Ancien</option>
+                    </select>
                 </label>
             <input type="submit" value="Envoyer" />
             </form>
