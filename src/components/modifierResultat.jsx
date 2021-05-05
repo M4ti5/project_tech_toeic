@@ -23,7 +23,7 @@ export default class ModifierResultat extends Component {
             <td id="modif" className={"hidden"}>
                 <Modifscore idResultatToeic={this.state.idResultatToeic} />
             </td>
-            <button className="bg-blue-600 text-white px-4 py-2 border rounded-md hover:bg-blue hover:border-indigo-500 hover:text-black " onClick={e=> this.modifRes(e)}>
+            <button className="bg-blue-600 text-white px-4 py-2 border rounded-sm hover:bg-blue hover:border-indigo-500 hover:text-black " onClick={e=> this.modifRes(e)}>
                 Modifier Resultats
             </button>  
         </div>

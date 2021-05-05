@@ -213,24 +213,28 @@ function afficherEtudiant({resultats, listEtudiant}){
     const total = scoreTotal({resultats}, i)
     var idR = etudiant[i].idResultatToeic
     notes[i]=etudiant[i]
-    tab[i] = <div className="w-3/4 mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
-        <td className="w-80 px-6 py-4 whitespace-nowrap">
-            <span className="text-center ml-2 font-semibold">{etudiant[i].nom+' '+etudiant[i].prenom}</span>
-        </td>
-        <td className="w-80 px-6 py-4 whitespace-nowrap">
-            <span className="text-center ml-2 font-semibold">Score Total : {total}</span>
-        </td> 
-        <td>
-        <ModifierResultat idResultatToeic={idR} /> 
-        <SupprimerResultat idResultatToeic={idR} /> 
-        </td>
-        <td className="w-80 px-6 py-4 whitespace-nowrap">
-            <Link as= {`/eleves/${result[i].idEleve}`} href="/eleves/[id]" key={i}>
-                <button className="bg-gray-600 text-white px-4 py-2 border rounded-md hover:bg-white hover:border-indigo-500 hover:text-black ">
-                    Voir
-                </button>
-             </Link>
-        </td>
+    tab[i] = <div className=" flex-col w-3/4 mx-auto rounded-lg bg-white border border-gray-200  text-gray-800 font-light mb-6">
+            <div className ="h-12 mt-5 flex justify-center space-x-2 ">
+              
+                <div className=" w-80 h-12 text-center ml-2 font-semibold">{etudiant[i].nom+' '+etudiant[i].prenom}</div>
+              
+            
+                <div className="w-80 h-12 text-center ml-2 font-semibold">Score Total : {total}</div>
+              
+                <SupprimerResultat idResultatToeic={idR} /> 
+                <div>
+                  <Link as= {`/eleves/${result[i].idEleve}`} href="/eleves/[id]" key={i}>
+                      <button className="bg-gray-600 px-4 py-2 text-white border rounded-sm  hover:bg-white hover:border-indigo-500 hover:text-black ">
+                          Voir
+                      </button>
+                  </Link>
+                </div>
+
+            </div>
+            <div className="ml-12">
+
+              <ModifierResultat idResultatToeic={idR} /> 
+            </div>
       </div> 
        }
   return tab
@@ -257,15 +261,16 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
             <Header dl={{type:"toeic",id:toeic[0].idToeic}} title={"Toeic du "+toeic[0].date}/>
 
             <main>
-                <div>
-                    <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Notes</h2>
+                <div className="ml-2">
+                    <FormAddStudentToeic idToeic={result[0].numToeic}/>
+                    <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Notes des élèves  </h2>
                     <h1>{afficherEtudiant({resultats, listEtudiant})}</h1>
                 </div>
-                <FormAddStudentToeic />
+                
                 <div>
                   <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Statistiques</h2><br></br>
-                    <section className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                        <div className="bg-gray-900 shadow-lg rounded p-3">
+                    <section className="mx-4 mb-2 grid grid-cols-1 sm:grid-cols-4 gap-4">
+                        <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
                                 <PieChart label1="Right Answers" label2="Wrong Answers" data1={reussi} data2 ={nonReussi({resultats},reussi)/*this.props.toeic1[1]*/} />
                             </div>
@@ -275,7 +280,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                                 <p className="text-gray-400">{/*this.props.toeic1[2]*/}</p>
                             </div>
                         </div>
-                        <div className="bg-gray-900 shadow-lg rounded p-3">
+                        <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
                                 <PieChart label1="Right Answers" label2="Wrong Answers" data1={score1} data2 ={mauvaisesRep(score1, 1)} />
                             </div>
@@ -285,7 +290,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                                 <p className="text-gray-400">{/*this.props.toeic2[2]*/}</p>
                             </div>
                         </div>
-                        <div className="bg-gray-900 shadow-lg rounded p-3">
+                        <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
                                 <PieChart label1="Right Answers" label2="Wrong Answers" data1={score2} data2 ={mauvaisesRep(score2, 2)} />
                             </div>
@@ -295,7 +300,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                                 <p className="text-gray-400">{/*this.props.toeic2[2]*/}</p>
                             </div>
                         </div>
-                        <div className="bg-gray-900 shadow-lg rounded p-3">
+                        <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
                                 <PieChart label1="Right Answers" label2="Wrong Answers" data1={score3} data2 ={mauvaisesRep(score3, 3)} />
                             </div>
@@ -305,7 +310,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                                 <p className="text-gray-400">{/*this.props.toeic2[2]*/}</p>
                             </div>
                         </div>
-                        <div className="bg-gray-900 shadow-lg rounded p-3">
+                        <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
                                 <PieChart label1="Right Answers" label2="Wrong Answers" data1={score4} data2 ={mauvaisesRep(score4, 4)} />
                             </div>
@@ -315,7 +320,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                                 <p className="text-gray-400">{/*this.props.toeic2[2]*/}</p>
                             </div>
                         </div>
-                        <div className="bg-gray-900 shadow-lg rounded p-3">
+                        <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
                                 <PieChart label1="Right Answers" label2="Wrong Answers" data1={score5} data2 ={mauvaisesRep(score5, 5)} />
                             </div>
@@ -325,7 +330,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                                 <p className="text-gray-400">{/*this.props.toeic2[2]*/}</p>
                             </div>
                         </div>
-                        <div className="bg-gray-900 shadow-lg rounded p-3">
+                        <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
                                 <PieChart label1="Right Answers" label2="Wrong Answers" data1={score6} data2 ={mauvaisesRep(score6, 6)} />
                             </div>
@@ -335,7 +340,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                                 <p className="text-gray-400">{/*this.props.toeic2[2]*/}</p>
                             </div>
                         </div>
-                        <div className="bg-gray-900 shadow-lg rounded p-3">
+                        <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
                                 <PieChart label1="Right Answers" label2="Wrong Answers" data1={score7} data2 ={mauvaisesRep(score7, 7)} />
                             </div>

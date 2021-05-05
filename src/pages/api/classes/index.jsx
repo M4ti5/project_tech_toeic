@@ -11,6 +11,20 @@ export default async (req, res) => {
                 res.json(data)
             break
 
+        case 'POST':
+            const Existing = await prisma.$queryRaw`Select * from classes where nomClasse=${req.body.nom}`
+            
+            if(Existing.length == 0){ // on verifie que l'élèves est bien unique & que c'est pas un chiffre
+
+                await prisma.classes.create({
+                    data: {
+                        nomClasse: req.body.nom,
+                        idAnnee: req.body.idAnnee,
+                    },
+                })
+                
+            }
+        break
         case 'DELETE' :
             
             

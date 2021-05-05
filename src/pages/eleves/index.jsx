@@ -145,7 +145,7 @@ export default class  vueEleves extends Component {
         
         return (
             <div>
-        <Header title="Listes des Eleves"/>
+        <Header title="Gestion des Eleves"/>
         <div className="flex flex-nowrap space-x-3 margin w-full justify-center my-10">
 
             <div className="relative text-gray-600 w-1/2">
@@ -164,6 +164,7 @@ export default class  vueEleves extends Component {
 
         <FormAddStudent />
 
+        <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Liste des Elèves</h2><br></br>
         {console.log(this.state.liste)}
         {   
             this.state.liste.map((e, i) => (

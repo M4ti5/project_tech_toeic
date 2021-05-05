@@ -1,7 +1,7 @@
 import { Component, useState } from 'react'
 import Header from '../../components/header'
 import Tab from '../../components/tab'
-import HeaderTab from '../../components/headerTab'
+import FormAddProfesseur from '../../components/formAddProfesseur'
 
 
 export default class  vueProfesseur extends Component {
@@ -36,16 +36,17 @@ export default class  vueProfesseur extends Component {
             <div>
                 <Header title="Zone des professeurs"/>
                 <div className=" flex flex-nowrap max-h-32 w-full space-x-3 justify-center ">
-                    <Tab title="Liste des Classes" textButton="Aller >" href="/classes/"/>
-                    <Tab title="Liste des Elèves" textButton="Aller >" href="/eleves/"/>
+                    <Tab title="Gestion des Classes" textButton="Aller >" href="/classes/"/>
+                    <Tab title="Gestion des Elèves" textButton="Aller >" href="/eleves/"/>
                     <Tab title="Liste des Toeics" textButton="Aller >" href="/toiecs/"/>
                     <Tab title="Importer un Toeic" textButton="Aller >" href="/toeicImport/"/>
                 </div>
-                <div className="mt-12 border-t-4 border-gray-600">
-                    <HeaderTab title="Ajout d'un Professeur" />
+                <div className="mt-16">
+                    <FormAddProfesseur/>
                 </div>
-                <div className="mt-12 border-t-4 border-gray-600">
-                    <HeaderTab title="Liste des Professeurs" />
+
+                <div className="mt-12 ">
+                    <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Liste des Professeurs</h2>
 
                 <div className=" w-full flex flex-col justify-center">
                     {this.state.liste.map((p, i) => (

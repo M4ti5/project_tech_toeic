@@ -1,15 +1,14 @@
 import React ,{ Component } from 'react'
 import Pie  from 'react-chartjs-2'
 
-// npm install --save react-chartjs-2 chart.js
 
-export default class PieChart extends React.Component {
+export default class PieChart extends Component {
     render() {
         return (
             <div>
                 <Pie
                     data={{
-                        labels: [this.props.label1, this.props.label2],
+                        labels: ["Bonnes Réponses", "Mauvaises Réponses"],
                         datasets: [{
                             data: [this.props.data1, this.props.data2],
                             backgroundColor: ['#00cb8b', '#de2f45'],

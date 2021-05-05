@@ -1,9 +1,8 @@
 import { Component, useState } from 'react'
 import Header from '../../components/header'
+import FormAddClasse from '../../components/formAddClasse'
 
-import Link from 'next/link'
-
-export default class  vueEleves extends Component {
+export default class  VueClasse extends Component {
 
     constructor(props){
         super(props);
@@ -34,9 +33,9 @@ export default class  vueEleves extends Component {
         console.log(this.state.liste)
         return (
             <div>
-                <Header title="Liste des Classes"/>
-
-                
+                <Header title="Gestion des Classes"/>
+                <FormAddClasse/>
+                <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Liste des Classes</h2>
                 <div className=" w-full flex flex-col justify-center">
                     {this.state.liste.map((c, i) => (
                         <div className="flex flex-col justify-center"  >

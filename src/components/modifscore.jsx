@@ -44,35 +44,35 @@ export default class Modifscore extends Component {
           <div className="my-8">
               <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Modifier Parties</h2>
             <form onSubmit={this.handleSubmit}>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
+                <label className="mx-2">
                     Part 1 : 
-                    <input className="w-8" type="number" name="scorePart1" value={this.state.scorePart1} onChange={this.handleChange} />        
+                    <input className="border-solid border-2  rounded-md border-gray-200 pl-1 w-10" type="number" name="scorePart1" value={this.state.scorePart1} onChange={this.handleChange} />        
                 </label>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
+                <label className=" mx-2">
                     Part 2 : 
-                    <input className="w-8" type="number" name="scorePart2" value={this.state.scorePart2} onChange={this.handleChange} />        
+                    <input className="order-solid border-2  rounded-md border-gray-200 pl-1 w-10" type="number" name="scorePart2" value={this.state.scorePart2} onChange={this.handleChange} />        
                 </label>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
+                <label className=" mx-2">
                     Part 3 : 
-                    <input className="w-8" type="number" name="scorePart3" value={this.state.scorePart3} onChange={this.handleChange} />        
+                    <input className="border-solid border-2  rounded-md border-gray-200 pl-1 w-10" type="number" name="scorePart3" value={this.state.scorePart3} onChange={this.handleChange} />        
                 </label>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
+                <label className=" mx-2">
                     Part 4 : 
-                    <input className="w-8" type="number" name="scorePart4" value={this.state.scorePart4} onChange={this.handleChange} />        
+                    <input className="border-solid border-2  rounded-md border-gray-200 pl-1 w-10" type="number" name="scorePart4" value={this.state.scorePart4} onChange={this.handleChange} />        
                 </label>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
+                <label className=" mx-2">
                     Part 5 : 
-                    <input className="w-8" type="number" name="scorePart5" value={this.state.scorePart5} onChange={this.handleChange} />        
+                    <input className="border-solid border-2  rounded-md border-gray-200 pl-1 w-10" type="number" name="scorePart5" value={this.state.scorePart5} onChange={this.handleChange} />        
                 </label>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
+                <label className=" mx-2">
                     Part 6 : 
-                    <input className="w-8" type="number" name="scorePart6" value={this.state.scorePart6} onChange={this.handleChange} />        
+                    <input className="border-solid border-2  rounded-md border-gray-200 pl-1 w-10" type="number" name="scorePart6" value={this.state.scorePart6} onChange={this.handleChange} />        
                 </label>
-                <label className="border-solid border-4 border-light-blue-500 mx-1">
+                <label className=" mx-2">
                     Part 7 : 
-                    <input className="w-8" type="number" name="scorePart7" value={this.state.scorePart7} onChange={this.handleChange} />        
+                    <input className="border-solid border-2  rounded-md border-gray-200 pl-1 w-10" type="number" name="scorePart7" value={this.state.scorePart7} onChange={this.handleChange} />        
                 </label>
-                <input type="submit" value="Envoyer Parties" />
+                <input className="bg-purple-500 hover:bg-gray-300 text-white px-4 py-2  ml-5 rounded-sm " type="submit" value="Enregister" />
             </form>
         </div>
       );

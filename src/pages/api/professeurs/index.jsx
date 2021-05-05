@@ -14,7 +14,25 @@ export default async (req, res) => {
         default:
             res.status(405).json({message:' Methode non allouée'})
         break
-        
+        case 'POST':
+
+            var localNom = req.body.nom.toUpperCase()
+            var localPrenom = req.body.prenom.toLowerCase()
+            localPrenom = localPrenom.replace(localPrenom.charAt(0),localPrenom.charAt(0).toUpperCase())
+
+            const Existing = await prisma.$queryRaw`Select * from professeurs where Nom=${localNom} AND Prenom=${localPrenom}`
+            
+            if(Existing.length == 0 && isNaN(parseInt(req.body.prenom))){ // on verifie que l'élèves est bien unique & que c'est pas un chiffre
+
+                await prisma.professeurs.create({
+                    data: {
+                        nom: localNom,
+                        prenom: localPrenom,
+                    },
+                })
+                
+            }
+        break
         case 'DELETE' :
             //On reafecte tous les eleves un professeur pour pas perdre les eleves
             await prisma.$queryRaw`UPDATE eleves SET idProfesseur = null WHERE idProfesseur=${req.body.idProfesseur}`
