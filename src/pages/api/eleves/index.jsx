@@ -7,7 +7,7 @@ export default async (req, res) => {
     switch(req.method){
 
         case 'POST':
-        
+
             var localNom = req.body.nom.toUpperCase()
             var localPrenom = req.body.prenom.toLowerCase()
             localPrenom = localPrenom.replace(localPrenom.charAt(0),localPrenom.charAt(0).toUpperCase())
@@ -36,7 +36,7 @@ export default async (req, res) => {
             }
 
             res.json(savedEleves)
-
+            
             break
 
         
@@ -47,6 +47,7 @@ export default async (req, res) => {
 
             break
 
+        
         
 
         

@@ -42,6 +42,7 @@ export default async (req, res) => {
                     idToeic: req.body.idToeic,
                   },
             })   
+            res.json()
             break
 
         case 'PUT' :

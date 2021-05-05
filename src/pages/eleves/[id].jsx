@@ -37,6 +37,8 @@ export default function ViewEleve({eleveInit, resultatsToeicsInit}){
     const [eleve , setEleve] = useState(eleveInit)
     const [toeics, setToeics] = useState(resultatsToeicsInit)
     const results = []
+    const resultsOral = []
+    const resultsEcrit = []
     const labelLine = []
     const listThresh = []
 
@@ -50,9 +52,9 @@ export default function ViewEleve({eleveInit, resultatsToeicsInit}){
             +element.scorePart6
             +element.scorePart7
     )*5),
-        labelLine.push(element.date)
-        //labelLine.push(cpt),
-        //cpt = cpt + 1
+        labelLine.push(element.date),
+        resultsOral.push((element.scorePart1+element.scorePart2+element.scorePart3+element.scorePart4)*5),
+        resultsEcrit.push((element.scorePart5+element.scorePart6+element.scorePart7)*5)
     ))
 
 
@@ -61,12 +63,13 @@ export default function ViewEleve({eleveInit, resultatsToeicsInit}){
     <div>
 
             <Header dl={{type:"eleve",id:eleve[0].idEleve}} title={eleve[0].nom+" "+eleve[0].prenom}/>
+            
 
             <main>
                 <div>
-                    <h1 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Derniers TOEIC</h1>
+                    <h1 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Derniers TOEICs</h1><br/>
                     <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div className="bg-gray-900 shadow-lg rounded p-3">
+                        <div className="bg-gray-900 shadow-lg rounded p-3 ">
                             <div className="group relative">
                                 <PieChart label1="Right Answers" label2="Wrong Answers" data1={results[0]} data2={200-results[0]} />
                             </div>
@@ -96,7 +99,7 @@ export default function ViewEleve({eleveInit, resultatsToeicsInit}){
                     </section>
 
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col my-10">
                         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                                 <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -140,7 +143,7 @@ export default function ViewEleve({eleveInit, resultatsToeicsInit}){
                         <div className="bg-gray-100 shadow-lg rounded p-3">
                             <h1 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Progression </h1>
                             <div>
-                                <LineChart dataList={results} labelList={labelLine}/>
+                                <LineChart dataListTotal={results} dataListOral={resultsOral} dataListEcrit={resultsEcrit} labelList={labelLine}/>
                             </div>
                         </div>  
                         <div>

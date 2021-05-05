@@ -9,7 +9,7 @@ export default class VueEleves extends Component{
         super(props);
         this.state = {
             liste: [],
-            date: "",
+            date: [""],
             search:""
         }
       }
@@ -160,7 +160,16 @@ export default class VueEleves extends Component{
 
 
     async supprimerToeic(e, idToeic){
-      await fetch( "http://localhost:3000"+'/api/toeics/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'DELETE',body:JSON.stringify({idToeic: idToeic})})
+      e.preventDefault();
+      var r = confirm("Confirmez-vous la suppression ?");
+      var txt = ""
+        if (r == true) {
+          await fetch( "http://localhost:3000"+'/api/toeics/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'DELETE',body:JSON.stringify({idToeic: idToeic})})
+          window.location.reload()
+            txt = "Suppression Confirmée !"
+        } else {
+            txt = "Suppression Annulée !"
+        }
     }
     
     modifierDate(e, idToeic){
@@ -204,12 +213,11 @@ export default class VueEleves extends Component{
                 this.state.liste.map((t, i) => (
                     <div>
                         <table>
-                            
                             <td className="w-80 px-6 py-4 whitespace-nowrap flex flex-nowrap ">
                               <div className="px-6 py-6 flex flex-nowrap space-x-3">
-
+                              
                                 <form name="part1" className="w-13">
-                                    <input id={"input_Date"+t.idToeic} type="text" value={this.state.date} placeholder={t.date} className="text-center ml-2 font-semibold disabled:bg-white" onChange={e => this.setState({date: e.target.value})} disabled="true" />
+                                    <input id={"input_Date"+t.idToeic} type="text" value={this.state.date[t]} placeholder={t.date} className="text-center ml-2 font-semibold disabled:bg-white" onChange={e => this.setState({date: e.target.value})} disabled="true" />
                                 </form>
                                 <span className="text-center ml-2 font-semibold">{t.nom +" "+ t.prenom}</span>
                                 <span className="text-center ml-2 font-semibold">{t.nomClasse}</span>
