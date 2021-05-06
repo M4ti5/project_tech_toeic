@@ -46,7 +46,6 @@ export default async (req, res) => {
             break
 
         case 'PUT' :
-                console.log(req.body.date)
                 const modifi = await prisma.toeics.update({
                     where: {idToeic: req.body.idToeic},
                     data: {date: req.body.date},

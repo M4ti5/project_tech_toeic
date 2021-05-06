@@ -165,7 +165,6 @@ export default class  vueEleves extends Component {
         <FormAddStudent />
 
         <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Liste des Elèves</h2><br></br>
-        {console.log(this.state.liste)}
         {   
             this.state.liste.map((e, i) => (
                 <div>

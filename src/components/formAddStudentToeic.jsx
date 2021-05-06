@@ -7,13 +7,13 @@ export default class FormAddStudent extends React.Component {
       this.state = { 
           nom: '',
           prenom: '',
-          scorePart1: 0,
-          scorePart2: 0,
-          scorePart3: 0,
-          scorePart4: 0,
-          scorePart5: 0,
-          scorePart6: 0,
-          scorePart7: 0,
+          scorePart1: "0",
+          scorePart2: "0",
+          scorePart3: "0",
+          scorePart4: "0",
+          scorePart5: "0",
+          scorePart6: "0",
+          scorePart7: "0",
         };
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,8 +36,9 @@ export default class FormAddStudent extends React.Component {
         alert("Le prenom est pas défini")
       }else{
         if (confirm("Voulez vous ajouter l\'élève : " + this.state.prenom+" "+this.state.nom)){
-          document.location.reload()
-          await fetch( "http://localhost:3000"+'/api/resultats/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'POST',body:JSON.stringify({nom:this.state.nom, prenom:this.state.prenom,numToeic:this.props.idToeic, Partie1:this.state.scorePart1,Partie2:this.state.scorePart2,Partie3:this.state.scorePart3,Partie4:this.state.scorePart4,Partie5: this.state.scorePart5,Partie6:this.state.scorePart6,Partie7:this.state.scorePart7 })})
+          console.log(this.state)
+          await fetch( "http://localhost:3000"+'/api/resultats/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'POST',body:JSON.stringify({nom:this.state.nom, prenom:this.state.prenom,idToeic:this.props.idToeic, Partie1:this.state.scorePart1,Partie2:this.state.scorePart2,Partie3:this.state.scorePart3,Partie4:this.state.scorePart4,Partie5: this.state.scorePart5,Partie6:this.state.scorePart6,Partie7:this.state.scorePart7 })})
+          //document.location.reload()
         }
       }
       event.preventDefault();

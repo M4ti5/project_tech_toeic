@@ -39,16 +39,6 @@ export default async (req, res) => {
             
             break
 
-        
-        case 'PUT' :
-            const eleveWithId = await prisma.$queryRaw`UPDATE eleves set idClasse=${req.body.nouveauIdClasse} where idEleve=${req.body.idEleve}` 
-            // UPDATE COMPANY SET ADDRESS = 'Texas' WHERE ID = 6        
-            res.json(eleveWithId)
-
-            break
-
-        
-        
 
         
         case 'GET' :
