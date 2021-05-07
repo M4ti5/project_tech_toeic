@@ -38,7 +38,7 @@ export default class  vueProfesseur extends Component {
                 <div className=" flex flex-nowrap max-h-32 w-full space-x-3 justify-center ">
                     <Tab title="Gestion des Classes" textButton="Aller >" href="/classes/"/>
                     <Tab title="Gestion des Elèves" textButton="Aller >" href="/eleves/"/>
-                    <Tab title="Liste des Toeics" textButton="Aller >" href="/toiecs/"/>
+                    <Tab title="Liste des Toeics" textButton="Aller >" href="/toeics/"/>
                     <Tab title="Importer un Toeic" textButton="Aller >" href="/toeicImport/"/>
                 </div>
                 <div className="mt-16">
