@@ -209,9 +209,11 @@ function afficherEtudiant({resultats, listEtudiant}){
   const taille = etudiant.length
   var notes = []
   var tab=new Array ()
+  var idR = new Array ()
+
   for(var i =  0; i<taille ;i++){
     const total = scoreTotal({resultats}, i)
-    var idR = etudiant[i].idResultatToeic
+    idR[i] = etudiant[i].idResultatToeic
     notes[i]=etudiant[i]
     tab[i] = <div className=" flex-col w-3/4 mx-auto rounded-lg bg-white border border-gray-200  text-gray-800 font-light mb-6">
             <div className ="h-12 mt-5 flex justify-center space-x-2 ">
@@ -221,7 +223,7 @@ function afficherEtudiant({resultats, listEtudiant}){
             
                 <div className="w-80 h-12 text-center ml-2 font-semibold">Score Total : {total}</div>
               
-                <SupprimerResultat idResultatToeic={idR} /> 
+                <SupprimerResultat idResultatToeic={idR[i]} /> 
                 <div>
                   <Link as= {`/eleves/${result[i].idEleve}`} href="/eleves/[id]" key={i}>
                       <button className="bg-gray-600 px-4 py-2 text-white border rounded-sm  hover:bg-white hover:border-indigo-500 hover:text-black ">
@@ -233,11 +235,13 @@ function afficherEtudiant({resultats, listEtudiant}){
             </div>
             <div className="ml-12">
 
-              <ModifierResultat idResultatToeic={idR} /> 
+              <ModifierResultat idResultatToeic={idR[i]} /> 
             </div>
       </div> 
        }
-  return tab
+       return tab 
+  
+  /*tab.map((i)=> )*/
 }
 
 export default function ViewToeic({toeicInit, resultats, listEtudiant}){

@@ -42,7 +42,7 @@ export default class Modifscore extends Component {
     render() {
       return (
           <div className="my-8">
-              <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Modifier Parties</h2>
+              <h2 className="text-4xl sm:text-5xl md:text-4xl font-bold mb-5">Modifier Parties {this.props.idResultatToeic}</h2>
             <form onSubmit={this.handleSubmit}>
                 <label className="mx-2">
                     Part 1 : 
