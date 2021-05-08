@@ -20,7 +20,6 @@ export default async (req, res) => {
                 var Existing = await prisma.$queryRaw`Select * from resultats_toeic where idEleve=${localEleve[0].idEleve} AND numToeic=${localToeic[0].idToeic}`
                 
             }else{
-                console.log("test")
                 await fetch( "http://localhost:3000"+'/api/eleves/', {headers: { "Content-Type": "application/json; charset=utf-8" },method: 'POST',body:JSON.stringify({nom:req.body.nom, prenom:req.body.prenom})})
                 var localEleve =  await prisma.$queryRaw`Select idEleve from eleves where Nom=${req.body.nom} and Prenom=${req.body.prenom}`
                

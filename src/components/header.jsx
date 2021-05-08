@@ -23,7 +23,7 @@ export default class Header extends Component {
                               <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Professeurs</a>
                             </Link>
 
-                            <DropDown title="Toiec" sub_title={[{title:"Liste des Toiecs", href:"/toeics"},{title:"Importation de Toiec", href:"/toeicImport"}]} />
+                            <DropDown title="Toeics" sub_title={[{title:"Liste des Toeics", href:"/toeics"},{title:"Importation de Toeic", href:"/toeicImport"}]} />
                            
                             <Link as = '/eleves' href="/eleves">
                             <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Elèves</a>
@@ -34,7 +34,7 @@ export default class Header extends Component {
                             </Link>
 
                             <Link as = '/operations' href="/operations">
-                            <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Opération</a>
+                            <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Opérations</a>
                             </Link>
 
                           </div>
