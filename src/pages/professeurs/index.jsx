@@ -58,9 +58,9 @@ export default class  vueProfesseur extends Component {
                                   </div>
 
                                     <div className="w-80 px-6 py-4 flex flex-nowrap space-x-3">
-                                      {p.nom != "PROMO" ? <button className="bg-red-600 text-white px-4 py-2 border rounded-md hover:bg-red hover:border-indigo-500 hover:text-black " onClick={e=> this.supprimer(e,p.idProfesseur)}>
+                                      {p.nom == "PROMO" ? null : p.nom == "Aucun Professeur" ? null : <button className="bg-red-600 text-white px-4 py-2 border rounded-md hover:bg-red hover:border-indigo-500 hover:text-black " onClick={e=> this.supprimer(e,p.idProfesseur)}>
                                           Supprimer
-                                      </button>: null}
+                                      </button>}
                                     </div>
                                 </div>
                            

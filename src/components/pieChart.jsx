@@ -8,7 +8,7 @@ export default class PieChart extends Component {
             <div>
                 <Pie
                     data={{
-                        labels: ["Bonnes Réponses", "Mauvaises Réponses"],
+                        labels: [this.props.label1, this.props.label2],
                         datasets: [{
                             data: [this.props.data1, this.props.data2],
                             backgroundColor: ['#00cb8b', '#de2f45'],

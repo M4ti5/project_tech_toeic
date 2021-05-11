@@ -276,7 +276,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                     <section className="mx-4 mb-2 grid grid-cols-1 sm:grid-cols-4 gap-4">
                         <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={reussi} data2 ={nonReussi({resultats},reussi)/*this.props.toeic1[1]*/} />
+                                <PieChart label1="Bonnes Réponses" label2="Mauvaises Réponses" data1={reussi} data2 ={nonReussi({resultats},reussi)/*this.props.toeic1[1]*/} />
                             </div>
 
                             <div className="p-5">
@@ -286,7 +286,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                         </div>
                         <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={score1} data2 ={mauvaisesRep(score1, 1)} />
+                                <PieChart label1="Bonnes Réponses" label2="Mauvaises Réponses" data1={score1} data2 ={mauvaisesRep(score1, 1)} />
                             </div>
 
                             <div className="p-5">
@@ -296,7 +296,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                         </div>
                         <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={score2} data2 ={mauvaisesRep(score2, 2)} />
+                                <PieChart label1="Bonnes Réponses" label2="Mauvaises Réponses" data1={score2} data2 ={mauvaisesRep(score2, 2)} />
                             </div>
 
                             <div className="p-5">
@@ -306,7 +306,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                         </div>
                         <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={score3} data2 ={mauvaisesRep(score3, 3)} />
+                                <PieChart label1="Bonnes Réponses" label2="Mauvaises Réponses" data1={score3} data2 ={mauvaisesRep(score3, 3)} />
                             </div>
 
                             <div className="p-5">
@@ -316,7 +316,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                         </div>
                         <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={score4} data2 ={mauvaisesRep(score4, 4)} />
+                                <PieChart label1="Bonnes Réponses" label2="Mauvaises Réponses" data1={score4} data2 ={mauvaisesRep(score4, 4)} />
                             </div>
 
                             <div className="p-5">
@@ -326,7 +326,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                         </div>
                         <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={score5} data2 ={mauvaisesRep(score5, 5)} />
+                                <PieChart label1="Bonnes Réponses" label2="Mauvaises Réponses" data1={score5} data2 ={mauvaisesRep(score5, 5)} />
                             </div>
 
                             <div className="p-5">
@@ -336,7 +336,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                         </div>
                         <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={score6} data2 ={mauvaisesRep(score6, 6)} />
+                                <PieChart label1="Bonnes Réponses" label2="Mauvaises Réponses" data1={score6} data2 ={mauvaisesRep(score6, 6)} />
                             </div>
 
                             <div className="p-5">
@@ -346,7 +346,7 @@ export default function ViewToeic({toeicInit, resultats, listEtudiant}){
                         </div>
                         <div className="bg-gray-800 shadow-lg rounded p-3">
                             <div className="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={score7} data2 ={mauvaisesRep(score7, 7)} />
+                                <PieChart label1="Bonnes Réponses" label2="Mauvaises Réponses" data1={score7} data2 ={mauvaisesRep(score7, 7)} />
                             </div>
 
                             <div className="p-5">

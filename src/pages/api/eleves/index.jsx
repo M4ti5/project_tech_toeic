@@ -27,7 +27,12 @@ export default async (req, res) => {
             
             //Ajout des Composantes Falcutatives 
             const isPromo = await prisma.$queryRaw`Select nom from professeurs where idProfesseur=${req.body.idProfesseur}`
+            const aucunProf = await prisma.$queryRaw`SELECT idProfesseur FROM professeurs WHERE nom=${"Aucun Professeur"}`
+            const promo = await prisma.$queryRaw`SELECT idProfesseur FROM professeurs WHERE nom=${"PROMO"}`
 
+            if(req.body.idProfesseur == aucunProf[0].idProfesseur || req.body.idProfesseur == promo[0].idProfesseur){ 
+                await prisma.$queryRaw`UPDATE eleves SET idProfesseur = ${aucunProf[0].idProfesseur} WHERE nom=${req.body.nom} and prenom=${req.body.prenom}`
+            }
             if(req.body.idProfesseur != undefined && isPromo[0].nom !="PROMO" ){ // Si c'est une promo on ne change pas la classe de l'élève
                 await prisma.$queryRaw`UPDATE eleves SET idProfesseur = ${req.body.idProfesseur} WHERE nom=${req.body.nom} and prenom=${req.body.prenom}`
             }

@@ -71,7 +71,7 @@ export default function ViewEleve({eleveInit, resultatsToeicsInit}){
                     <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div className="bg-gray-900 shadow-lg rounded p-3 ">
                             <div className="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={results[0]} data2={200-results[0]} />
+                                <PieChart label1="Score" label2="Point restant" data1={results[0]} data2={990-results[0]} />
                             </div>
                             <div className="p-5">
                                 <h3 className="text-white text-lg">TOEIC n°1</h3>
@@ -80,7 +80,7 @@ export default function ViewEleve({eleveInit, resultatsToeicsInit}){
                         </div>
                         <div className="bg-gray-900 shadow-lg rounded p-3">
                             <div className="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={results[1]} data2={200-results[1]} />
+                                <PieChart label1="Score" label2="Point restant" data1={results[1]} data2={990-results[1]} />
                             </div>
                             <div className="p-5">
                                 <h3 className="text-white text-lg">TOEIC n°2</h3>
@@ -89,7 +89,7 @@ export default function ViewEleve({eleveInit, resultatsToeicsInit}){
                         </div>  
                         <div className="bg-gray-900 shadow-lg rounded p-3">
                             <div className="group relative">
-                                <PieChart label1="Right Answers" label2="Wrong Answers" data1={results[2]} data2={200-results[2]} />
+                                <PieChart label1="Score" label2="Point restant" data1={results[2]} data2={990-results[2]} />
                             </div>
                             <div class="p-5">
                                 <h3 className="text-white text-lg">TOEIC n°3</h3>
